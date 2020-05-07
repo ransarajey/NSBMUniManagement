@@ -127,40 +127,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="card shadow mb-4">
-                                    <div class="card-header py-3">
-                                        <h6 class="text-primary font-weight-bold m-0">Edit Shuttle Schedule</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <form>
-                                                <div class="form-row">
-                                                    <div class="col"><label>Select Bus</label><form class="form-inline">
-  <div class="form-group">
-     <select  class="form-control" >
-         <option>Option1</option>
-         <option>Option2</option>
-      </select>
-  </div>
-</form></div>
-                                                </div>
-                                                <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>Time</label><input class="form-control" type="time" name="editSHuttleTime" required=""></div>
-                                                </div>
-                                                <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col">
-                                                        <div id="btnwrapperleft"><button class="btn btn-danger btn-icon-split" type="reset"><span class="text-white-50 icon"><i class="fas fa-trash"></i></span><span class="text-white text">Clear</span></button></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div id="btnwrapperright"><button class="btn btn-success btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Update</span></button></div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div id="item-1-2" class="tab-pane fade" role="tabpanel" aria-labelledby="item-1-2-tab">

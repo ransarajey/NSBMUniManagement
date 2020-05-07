@@ -88,10 +88,10 @@
                         <div class="card-body">
                             <div class="row align-items-center no-gutters">
                                 <div class="col mr-2">
-                                    <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>next event</span></div>
+                                    <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Next Event</span></div>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-auto">
-                                            <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>Event Name</span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span><?php  global $conn; $query3 = $conn->query("select eventName from events where eventDate >= DATE(NOW()) ORDER BY eventDate,eventFrom LIMIT 1 "); while($rows3 = $query3->fetch_assoc()){$eventt = $rows3['eventName'];} echo $eventt; ?></span></div>
                                         </div>
                                     </div>
                                 </div>
