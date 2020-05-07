@@ -62,8 +62,8 @@
                         <div class="card-body">
                             <div class="row align-items-center no-gutters">
                                 <div class="col mr-2">
-                                    <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Next shuttle</span></div>
-                                    <div class="text-dark font-weight-bold h5 mb-0"><span>Shuttle time</span></div>
+                                    <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Next shuttle from NSBM</span></div>
+                                    <div class="text-dark font-weight-bold h5 mb-0"><span><?php  global $conn; $query5 = $conn->query("select shuttleTime from shuttles where shuttleTime >= TIME(NOW()) AND shuttleFrom='NSBM' ORDER BY shuttleTime LIMIT 1 "); while($rows5 = $query5->fetch_assoc()){$shuttlee = $rows5['shuttleTime'];} if(isset($shuttlee)){ echo $shuttlee;} else{echo "No shuttles";} ?></span></div>
                                 </div>
                                 <div class="col-auto"><i class="fas fa-bus-alt fa-2x text-gray-300"></i></div>
                             </div>
@@ -91,7 +91,7 @@
                                     <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Next Event</span></div>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-auto">
-                                            <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span><?php  global $conn; $query3 = $conn->query("select eventName from events where eventDate >= DATE(NOW()) ORDER BY eventDate,eventFrom LIMIT 1 "); while($rows3 = $query3->fetch_assoc()){$eventt = $rows3['eventName'];} echo $eventt; ?></span></div>
+                                            <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span><?php  global $conn; $query3 = $conn->query("select eventName from events where eventDate >= DATE(NOW()) ORDER BY eventDate,eventFrom LIMIT 1 "); while($rows3 = $query3->fetch_assoc()){$eventt = $rows3['eventName'];} if(isset($eventt)){ echo $eventt;} else{echo "No events";} ?></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
                             <div class="row align-items-center no-gutters">
                                 <div class="col mr-2">
                                     <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>new complaints</span></div>
-                                    <div class="text-dark font-weight-bold h5 mb-0"><span>Complaint count</span></div>
+                                    <div class="text-dark font-weight-bold h5 mb-0"><span><?php  global $conn; $query4 = $conn->query("select * from complaints where complaintAssignedTo=''"); $complaintCount=0;   while($rows4 = $query4->fetch_assoc())   { $complaintCount = $complaintCount+1;  } echo $complaintCount; ?></span></div>
                                 </div>
                                 <div class="col-auto"><i class="fas fa-comments fa-2x text-gray-300"></i></div>
                             </div>

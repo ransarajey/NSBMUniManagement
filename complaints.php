@@ -103,7 +103,13 @@
                                                             <div><input class="form-control" type="hidden" name="assignComplaint" value="<?php echo $complaintID;?>" ></div>
                                                             <select  class="form-control" name="assignedTo" >
                                                         
+                                                                            <?php
+                                                                            if($complaintAssignedTo==''):
+                                                                            ?>  
+                                                                             <option disabled selected value="">Select an official</option>
+                                                                          <?php else: ?>                            
                                                                               <option disabled selected value="<?php echo $complaintAssignedTo;?>">Currently Assigned To:<?php echo $complaintAssignedTo;?></option>
+                                                                            <?php endif; ?>
                                                                               <option value="Dean of FOC">Dean of FOC</option>
                                                                               <option value="Management of FOC">Management of FOC</option>
 
