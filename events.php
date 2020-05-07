@@ -30,6 +30,7 @@
 </head>
 
 <body id="page-top">
+<?php require_once "assets/php/addEvents.php"; ?>
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div class="container-fluid d-flex flex-column p-0">
@@ -75,32 +76,47 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                            <table class="table dataTable my-0" id="dataTable">
-                                                <thead>
+                                        <table class="table dataTable my-0" id="dataTable">
+                                            <thead>
                                                     <tr>
-                                                        <th>Time</th>
+                                                        <th>Image</th>
                                                         <th>Date</th>
-                                                        <th>Event Name</th>
+                                                        <th>From</th>
+                                                        <th>To</th>
+                                                        <th>Name</th>
                                                         <th>Hall</th>
-                                                        <th>&nbsp; &nbsp;Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Airi Satou</td>
-                                                        <td>Accountant</td>
-                                                        <td>Tokyo</td>
-                                                        <td><form class="form-inline">
-  <div class="form-group">
-     <select  class="form-control" >
-         <option>Option1</option>
-         <option>Option2</option>
-      </select>
-  </div>
-</form></td>
-                                                        <td><button class="btn btn-success btn-circle ml-1" type="submit"><i class="fas fa-check text-white"></i></button><button class="btn btn-danger btn-circle ml-1" type="submit"><i class="far fa-calendar-minus text-white"></i></button></td>
-                                                    </tr>
-                                                </tbody>
+                                                        <th>Actions</th>
+                                                    </tr> </thead>
+                                                    <tbody>
+                                                    <?php 
+            
+                                                        global $conn;
+                                                    
+                                                        $query = $conn->query("select eventID,eventDate, eventFrom, eventTo, eventName, eventImage,eventHall from events where eventClub='IEEE' AND eventDate >= DATE(NOW()) ORDER BY eventDate,eventFrom ");
+                           
+                                                    
+			                                            $i=0;
+				                                        while($rows = $query->fetch_assoc()){
+                                                        $i++;
+                                                        
+                                                        $evID = $rows['eventID'];
+                                                        $evHall = $rows['eventHall'];
+                                                        $nullHall = "<strong>Not Assigned Yet</strong>";
+			                                            ?>
+			                                            <tr>
+                                                            <td><img src="assets/images/<?php echo $rows['eventImage'];?>" height="42" width="42"></td>
+			                                            	<td><?php echo $rows['eventDate'];?></td>
+			                                            	<td><?php echo $rows['eventFrom'];?></td>
+                                                            <td><?php echo $rows['eventTo'];?></td>
+                                                            <td><?php echo $rows['eventName'];?></td>
+                                                            <td><?php if (isset($evHall)) {echo $evHall;} else {echo $nullHall;} ?></td>
+                                                            
+                                                            <td><a href="events.php?edit=<?php echo $rows['eventID'];?> "  class="btn btn-success btn-circle ml-1" ><i class="fas fa-edit text-white"></i></a>
+                                                            <a href="assets/php/deleteEvent.php?eventID=<?php echo $rows['eventID'];?> " class="btn btn-danger btn-circle ml-1"><i class="far fa-calendar-minus text-white"></a>
+                                                            </td>
+			                                                </tr>
+			                                                <?php } ?>
+                                                            </tbody>
                                                 <tfoot>
                                                     <tr></tr>
                                                 </tfoot>
@@ -114,21 +130,28 @@
                             <div class="col">
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                        <h6 class="text-primary font-weight-bold m-0">Add Events</h6>
+                                    <?php
+                                        if($update==true):
+                                    ?>  
+                                                            <h6 class="text-primary font-weight-bold m-0">Update Event</h6>
+                                      <?php else: ?>                            
+                                                            <h6 class="text-primary font-weight-bold m-0">Add Event</h6>
+                                            <?php endif; ?>
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <form method="post" action="assets/php/manageEvents.php" enctype="multipart/form-data">
+                                            <form method="post" action="assets/php/addEvents.php" enctype="multipart/form-data">
+                                                 <input type="hidden" name="id" value= "<?php echo $editevID; ?>">
                                                 <div class="form-row">
                                                     <div><input class="form-control" type="hidden" name="addEventClub" value="IEEE" ></div>
-                                                    <div class="col"><label>Date</label><input class="form-control" type="date" name="addEventDate" required=""></div>
+                                                    <div class="col"><label>Date</label><input class="form-control" type="date" name="addEventDate" required="" value="<?php echo $editevDate?>"></div>
                                                 </div>
                                                 <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>From</label><input class="form-control" type="time" name="addEventFrom" required=""></div>
-                                                    <div class="col"><label>To</label><input class="form-control" type="time" name="addEventTo" required=""></div>
+                                                    <div class="col"><label>From</label><input class="form-control" type="time" name="addEventFrom" required="" value="<?php echo $editevFrom?>"></div>
+                                                    <div class="col"><label>To</label><input class="form-control" type="time" name="addEventTo" required="" value="<?php echo $editevTo?>"></div>
                                                 </div>
                                                 <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>Name of the event</label><input class="form-control" type="text" name="addEventName" required=""></div>
+                                                    <div class="col"><label>Name of the event</label><input class="form-control" type="text" name="addEventName" required="" value="<?php echo $editevName?>"></div>
                                                 </div>
                                                 <div class="form-row" style="margin-top: 17px;">
                                                     <div class="col"><label>Flyer</label><input type="file" style="margin-left: 16px;" name="addEventFlyer"></div>
@@ -138,8 +161,13 @@
                                                         <div id="btnwrapperleft"><button class="btn btn-danger btn-icon-split" type="reset"><span class="text-white-50 icon"><i class="fas fa-trash"></i></span><span class="text-white text">Clear</span></button></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div id="btnwrapperright"><button class="btn btn-success btn-icon-split" name="submit" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Add</span></button></div>
-                                                    </div>
+                                                    <?php
+                                                            if($update==true):
+                                                        ?>  
+                                                                                <div id="btnwrapperright"><button name="update" class="btn btn-success btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Update</span></button></div>
+                                                            <?php else: ?>                            
+                                                        <div id="btnwrapperright"><button class="btn btn-success btn-icon-split" name="add" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Add</span></button></div>
+                                                        <?php endif; ?>                                                    </div>
                                                 </div>
                                             </form>
                                         </div>

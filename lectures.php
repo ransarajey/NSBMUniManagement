@@ -148,7 +148,7 @@
                                         
                                     </div>
                                     <div class="card-body">
-                                                                               <div class="form-group">
+                                             <div class="form-group">
                                             <form method="post" action="/nsbm/assets/php/addLectures.php">
                                                 <input type="hidden" name="id" value= "<?php echo $editlecID; ?>">
                                                 <div class="form-row">

@@ -139,6 +139,20 @@ public function adminLogin($adminEmail, $adminPassword){
 		
 	}
 
+	public function updateEvents($updateeventID,$updateeventDate,$updateeventFrom,$updateeventTo,$updateeventName,$image){
+		global $conn;
+	
+		$in_sql = "Update events SET eventDate='$updateeventDate', eventFrom = '$updateeventFrom',eventTo = '$updateeventTo', eventName='$updateeventName' WHERE eventID='$updateeventID'  ";
+		$conn->query($in_sql);
+
+		if($image != null){
+		$in_sql2 = "Update events SET eventImage='$image' WHERE eventID='$updateeventID'  ";
+		$conn->query($in_sql2);
+		}
+		return true;
+		
+	}
+
 
 };
 ?>
