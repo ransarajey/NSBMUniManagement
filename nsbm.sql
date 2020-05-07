@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2020 at 01:55 PM
+-- Generation Time: May 07, 2020 at 04:23 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -25,6 +25,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `complaints`
+--
+
+CREATE TABLE `complaints` (
+  `complaintID` int(11) NOT NULL,
+  `complaintText` varchar(500) NOT NULL,
+  `complaintAssignedTo` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `events`
 --
 
@@ -39,15 +51,6 @@ CREATE TABLE `events` (
   `eventStatus` tinyint(1) NOT NULL DEFAULT '1',
   `eventHall` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `events`
---
-
-INSERT INTO `events` (`eventID`, `eventClub`, `eventDate`, `eventFrom`, `eventTo`, `eventName`, `eventImage`, `eventStatus`, `eventHall`) VALUES
-(9, 'IEEE', '2020-05-20', '12:21:00', '12:12:00', 'hoh', 'tickdesgin13.png', 1, NULL),
-(10, 'IEEE', '2020-05-16', '12:12:00', '12:12:00', '121212112', 'blue_up.png', 1, NULL),
-(12, 'IEEE', '2020-05-08', '12:20:00', '12:40:00', 'sfsf', 'fav.png', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -103,23 +106,19 @@ CREATE TABLE `lectures` (
   `lectureHall` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `lectures`
+-- Table structure for table `shuttles`
 --
 
-INSERT INTO `lectures` (`lectureID`, `lectureBatch`, `lectureDate`, `lectureFrom`, `lectureTo`, `lectureName`, `lectureLecturer`, `lectureStatus`, `lectureHall`) VALUES
-(33, '18.1', '2020-05-03', '07:00:00', '11:00:00', 'Test 1', 'Test 1', 1, 'C002'),
-(34, '18.1', '2020-05-03', '06:00:00', '07:00:00', 'Test 2', 'Test 2', 1, 'C001'),
-(43, '18.1', '2020-05-03', '07:00:00', '11:00:00', 'duplicate', 'Test 1', 1, NULL),
-(45, '18.1', '2020-05-05', '12:21:00', '15:12:00', 'adad', 'dad', 1, NULL),
-(46, '18.1', '2020-05-07', '13:13:00', '15:13:00', '131', '13', 1, 'C001'),
-(47, '19.1', '2020-05-07', '15:00:00', '14:00:00', 'adad', 'a', 1, 'C002'),
-(49, '18.1', '2020-05-08', '12:20:00', '12:40:00', 'sgsg', 'sgg', 1, 'C002'),
-(51, '18.1', '2020-05-08', '12:15:00', '12:30:00', 'tttt', 'tt', 1, 'C003'),
-(52, '18.1', '2020-05-08', '12:20:00', '12:40:00', 'sgsgs', 'dbfvnv', 1, 'C004'),
-(53, '19.1', '2020-05-08', '12:20:00', '12:40:00', 'sfg', 'dg', 1, 'C001'),
-(54, '18.1', '2020-05-08', '12:00:00', '12:30:00', 'fhf', 'fh', 1, ''),
-(55, '18.1', '2020-05-08', '12:20:00', '12:40:00', 'safa', 'af', 1, NULL);
+CREATE TABLE `shuttles` (
+  `shuttleID` int(11) NOT NULL,
+  `shuttleFrom` varchar(20) NOT NULL,
+  `shuttleTime` time NOT NULL,
+  `shuttleNo` varchar(20) NOT NULL,
+  `shuttleIcon` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -139,7 +138,8 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`studentID`, `studentName`, `studentEmail`, `studentBatch`) VALUES
-(10023517, 'Ransara Wijayasundara', 'ransarajey@mail.com', '18.1');
+(10023517, 'Ransara Wijayasundara', 'ransarajey@mail.com', '18.1'),
+(10026026, 'Kasun Rukmaldeniya', 'rukaatricks.com@gmail.com', '18.1');
 
 -- --------------------------------------------------------
 
@@ -225,6 +225,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 
 --
+-- Indexes for table `complaints`
+--
+ALTER TABLE `complaints`
+  ADD PRIMARY KEY (`complaintID`);
+
+--
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
@@ -241,6 +247,12 @@ ALTER TABLE `halls`
 --
 ALTER TABLE `lectures`
   ADD PRIMARY KEY (`lectureID`);
+
+--
+-- Indexes for table `shuttles`
+--
+ALTER TABLE `shuttles`
+  ADD PRIMARY KEY (`shuttleID`);
 
 --
 -- Indexes for table `students`
@@ -273,16 +285,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `complaints`
+--
+ALTER TABLE `complaints`
+  MODIFY `complaintID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `eventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `eventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `lectures`
 --
 ALTER TABLE `lectures`
   MODIFY `lectureID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+
+--
+-- AUTO_INCREMENT for table `shuttles`
+--
+ALTER TABLE `shuttles`
+  MODIFY `shuttleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `studyroomsreservations`
