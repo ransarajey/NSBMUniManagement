@@ -60,9 +60,8 @@
             <div class="card">
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="item-1-1-tab" data-toggle="tab" role="tab" aria-controls="item-1-1" aria-selected="true" href="#item-1-1">Media Club</a></li>
-                        <li class="nav-item"><a class="nav-link" id="item-1-2-tab" data-toggle="tab" role="tab" aria-controls="item-1-2" aria-selected="false" href="#item-1-2">IEEE Student Branch</a></li>
-                        <li class="nav-item"><a class="nav-link" id="item-1-3-tab" data-toggle="tab" role="tab" aria-controls="item-1-3" aria-selected="false" href="#item-1-3">Karate Club</a></li>
+                        <li class="nav-item"><a class="nav-link active" id="item-1-1-tab" data-toggle="tab" role="tab" aria-controls="item-1-1" aria-selected="true" href="#item-1-1">IEEE</a></li>
+                        <li class="nav-item"><a class="nav-link" id="item-1-2-tab" data-toggle="tab" role="tab" aria-controls="item-1-2" aria-selected="false" href="#item-1-2">AARC</a></li>
                     </ul>
                 </div>
                 <div style="margin-top: 17px;"></div>
@@ -219,7 +218,7 @@
                                                             <td>
                                                             <div class="form-group">
                                                             
-                                                            <div><input class="form-control" type="hidden" name="hallAssignLec" value="<?php echo $hallAssignEvent;?>" ></div>
+                                                            <div><input class="form-control" type="hidden" name="hallAssignEvent" value="<?php echo $hallAssignEvent;?>" ></div>
                                                             <select  class="form-control" name="selectedHall" >
                                                             <?php
                                                                 $query2 = $conn->query("select reservHall from hallview where reservDate='$eventDate' AND reservFrom<'$eventTo' AND reservTo>'$eventFrom'");
@@ -269,7 +268,7 @@
                         </div>
                     </div>
                     <div id="item-1-2" class="tab-pane fade" role="tabpanel" aria-labelledby="item-1-2-tab">
-                        <div class="row">
+                    <div class="row">
                             <div class="col">
                                 <div class="card shadow">
                                     <div class="card-header py-3">
@@ -277,32 +276,47 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                            <table class="table dataTable my-0" id="dataTable">
-                                                <thead>
+                                        <table class="table dataTable my-0" id="dataTable">
+                                            <thead>
                                                     <tr>
-                                                        <th>Time</th>
+                                                        <th>Image</th>
                                                         <th>Date</th>
-                                                        <th>Event Name</th>
+                                                        <th>From</th>
+                                                        <th>To</th>
+                                                        <th>Name</th>
                                                         <th>Hall</th>
-                                                        <th>&nbsp; &nbsp;Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Airi Satou</td>
-                                                        <td>Accountant</td>
-                                                        <td>Tokyo</td>
-                                                        <td><form class="form-inline">
-  <div class="form-group">
-     <select  class="form-control" >
-         <option>Option1</option>
-         <option>Option2</option>
-      </select>
-  </div>
-</form></td>
-                                                        <td><button class="btn btn-success btn-circle ml-1" type="submit"><i class="fas fa-check text-white"></i></button><button class="btn btn-danger btn-circle ml-1" type="submit"><i class="far fa-calendar-minus text-white"></i></button></td>
-                                                    </tr>
-                                                </tbody>
+                                                        <th>Actions</th>
+                                                    </tr> </thead>
+                                                    <tbody>
+                                                    <?php 
+            
+                                                        global $conn;
+                                                    
+                                                        $query = $conn->query("select eventID,eventDate, eventFrom, eventTo, eventName, eventImage,eventHall from events where eventClub='AARC' AND eventDate >= DATE(NOW()) ORDER BY eventDate,eventFrom ");
+                           
+                                                    
+			                                            $i=0;
+				                                        while($rows = $query->fetch_assoc()){
+                                                        $i++;
+                                                        
+                                                        $evID = $rows['eventID'];
+                                                        $evHall = $rows['eventHall'];
+                                                        $nullHall = "<strong>Not Assigned Yet</strong>";
+			                                            ?>
+			                                            <tr>
+                                                            <td><img src="assets/images/<?php echo $rows['eventImage'];?>" height="42" width="42"></td>
+			                                            	<td><?php echo $rows['eventDate'];?></td>
+			                                            	<td><?php echo $rows['eventFrom'];?></td>
+                                                            <td><?php echo $rows['eventTo'];?></td>
+                                                            <td><?php echo $rows['eventName'];?></td>
+                                                            <td><?php if (isset($evHall)) {echo $evHall;} else {echo $nullHall;} ?></td>
+                                                            
+                                                            <td><a href="events.php?edit=<?php echo $rows['eventID'];?> "  class="btn btn-success btn-circle ml-1" ><i class="fas fa-edit text-white"></i></a>
+                                                            <a href="assets/php/deleteEvent.php?eventID=<?php echo $rows['eventID'];?> " class="btn btn-danger btn-circle ml-1"><i class="far fa-calendar-minus text-white"></a>
+                                                            </td>
+			                                                </tr>
+			                                                <?php } ?>
+                                                            </tbody>
                                                 <tfoot>
                                                     <tr></tr>
                                                 </tfoot>
@@ -316,20 +330,28 @@
                             <div class="col">
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                        <h6 class="text-primary font-weight-bold m-0">Add Events</h6>
+                                    <?php
+                                        if($update==true):
+                                    ?>  
+                                                            <h6 class="text-primary font-weight-bold m-0">Update Event</h6>
+                                      <?php else: ?>                            
+                                                            <h6 class="text-primary font-weight-bold m-0">Add Event</h6>
+                                            <?php endif; ?>
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <form>
+                                            <form method="post" action="assets/php/addEvents.php" enctype="multipart/form-data">
+                                                 <input type="hidden" name="id" value= "<?php echo $editevID; ?>">
                                                 <div class="form-row">
-                                                    <div class="col"><label>Date</label><input class="form-control" type="date" name="addEventDate"></div>
+                                                    <div><input class="form-control" type="hidden" name="addEventClub" value="AARC" ></div>
+                                                    <div class="col"><label>Date</label><input class="form-control" type="date" name="addEventDate" required="" value="<?php echo $editevDate?>"></div>
                                                 </div>
                                                 <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>From</label><input class="form-control" type="time" name="addEventFrom"></div>
-                                                    <div class="col"><label>To</label><input class="form-control" type="time" name="addEventTo"></div>
+                                                    <div class="col"><label>From</label><input class="form-control" type="time" name="addEventFrom" required="" value="<?php echo $editevFrom?>"></div>
+                                                    <div class="col"><label>To</label><input class="form-control" type="time" name="addEventTo" required="" value="<?php echo $editevTo?>"></div>
                                                 </div>
                                                 <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>Name of the event</label><input class="form-control" type="text" name="addEventName"></div>
+                                                    <div class="col"><label>Name of the event</label><input class="form-control" type="text" name="addEventName" required="" value="<?php echo $editevName?>"></div>
                                                 </div>
                                                 <div class="form-row" style="margin-top: 17px;">
                                                     <div class="col"><label>Flyer</label><input type="file" style="margin-left: 16px;" name="addEventFlyer"></div>
@@ -339,8 +361,13 @@
                                                         <div id="btnwrapperleft"><button class="btn btn-danger btn-icon-split" type="reset"><span class="text-white-50 icon"><i class="fas fa-trash"></i></span><span class="text-white text">Clear</span></button></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div id="btnwrapperright"><button class="btn btn-success btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Add</span></button></div>
-                                                    </div>
+                                                    <?php
+                                                            if($update==true):
+                                                        ?>  
+                                                                                <div id="btnwrapperright"><button name="update" class="btn btn-success btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Update</span></button></div>
+                                                            <?php else: ?>                            
+                                                        <div id="btnwrapperright"><button class="btn btn-success btn-icon-split" name="add" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Add</span></button></div>
+                                                        <?php endif; ?>                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -354,176 +381,94 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <form>
-                                                <div class="form-row">
-                                                    <div class="col"><label>Select Event</label><form class="form-inline">
-  <div class="form-group">
-     <select  class="form-control" >
-         <option>Option1</option>
-         <option>Option2</option>
-      </select>
-  </div>
-</form></div>
-                                                    <div class="col"><button class="btn btn-success btn-circle ml-1" type="submit" style="margin-top: 30px;"><i class="fas fa-redo-alt text-white"></i></button></div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col"><label>Date</label><input class="form-control" type="date" name="editEventDate"></div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col"><label>From</label><input class="form-control" type="time" name="editEventFrom"></div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col"><label>To</label><input class="form-control" type="time" name="editEventTo"></div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col"><label>Event Name</label><input class="form-control" type="text" name="editEventName"></div>
-                                                </div>
-                                                <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>Replace flyer</label><input type="file" style="margin-left: 16px;" name="editEventFlyer"></div>
-                                                </div>
-                                                <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col">
-                                                        <div id="btnwrapperleft"><button class="btn btn-danger btn-icon-split" type="reset"><span class="text-white-50 icon"><i class="fas fa-trash"></i></span><span class="text-white text">Clear</span></button></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div id="btnwrapperright"><button class="btn btn-success btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Update</span></button></div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="item-1-3" class="tab-pane fade" role="tabpanel" aria-labelledby="item-1-3-tab">
-                        <div class="row">
-                            <div class="col">
-                                <div class="card shadow">
-                                    <div class="card-header py-3">
-                                        <p class="text-primary m-0 font-weight-bold" style="color: rgb(58,181,74);">Allocate Lecture Halls</p>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                        <form class="form-inline" method="post" action="/nsbm/assets/php/assignHallEvent.php">                
                                             <table class="table dataTable my-0" id="dataTable">
-                                                <thead>
+                                            <thead>
                                                     <tr>
-                                                        <th>Time</th>
                                                         <th>Date</th>
-                                                        <th>Event Name</th>
+                                                        <th>Time</th>
+                                                        <th>Name</th> 
                                                         <th>Hall</th>
-                                                        <th>&nbsp; &nbsp;Actions</th>
+                                                        <th>&nbsp; &nbsp;Assign</th>
                                                     </tr>
                                                 </thead>
+                                                
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Airi Satou</td>
-                                                        <td>Accountant</td>
-                                                        <td>Tokyo</td>
-                                                        <td><form class="form-inline">
-  <div class="form-group">
-     <select  class="form-control" >
-         <option>Option1</option>
-         <option>Option2</option>
-      </select>
-  </div>
-</form></td>
-                                                        <td><button class="btn btn-success btn-circle ml-1" type="submit"><i class="fas fa-check text-white"></i></button><button class="btn btn-danger btn-circle ml-1" type="submit"><i class="far fa-calendar-minus text-white"></i></button></td>
-                                                    </tr>
+                                                
+                                                <?php 
+            
+                                                        global $conn;
+                                                    
+                                                        $query = $conn->query("select * from events where eventClub='AARC' AND eventDate >= DATE(NOW()) AND eventHall IS NULL ORDER BY eventDate,eventFrom");
+                                                        
+                                                    
+                                                        $i=0;
+                                                        while($rows = $query->fetch_assoc()){
+                                                        $i++;
+                                                        
+                                                        $hallAssignEvent = $rows['eventID'];
+                                                        $eventDate = $rows['eventDate'];
+                                                        $eventFrom = $rows['eventFrom'];
+                                                        $eventTo = $rows['eventTo'];
+                                                        ?>
+                                                        <tr>
+                                                            
+                                                            <td><?php echo $rows['eventDate'];?></td>
+                                                            <td><?php echo $rows['eventFrom'];?></br><?php echo $rows['eventTo'];?></td>
+                                                            <td><?php echo $rows['eventName'];?></td>
+                                                            <td>
+                                                            <div class="form-group">
+                                                            
+                                                            <div><input class="form-control" type="hidden" name="hallAssignEvent" value="<?php echo $hallAssignEvent;?>" ></div>
+                                                            <select  class="form-control" name="selectedHall" >
+                                                            <?php
+                                                                $query2 = $conn->query("select reservHall from hallview where reservDate='$eventDate' AND reservFrom<'$eventTo' AND reservTo>'$eventFrom'");
+                                                                $hall01 = "C001";
+                                                                $hall02 = "C002";
+                                                                $hall03 = "C003";
+                                                                $hall04 = "C004";
+                                                                $hall05 = "C005";
+                                                                while($rows2 = $query2->fetch_assoc())
+                                                                        { 
+                                                                            if ($rows2['reserveHall']=="C001"){
+                                                                                $hall01 = "none";
+                                                                            } elseif ($rows2['reservHall']=="C002"){
+                                                                                $hall02 = "none";
+                                                                            } elseif ($rows2['reservHall']=="C003"){
+                                                                                $hall03 = "none";
+                                                                            } elseif ($rows2['reservHall']=="C004"){
+                                                                                $hall04 = "none";
+                                                                            } elseif ($rows2['reservHall']=="C005"){
+                                                                                $hall04 = "none";
+                                                                            }
+
+                                                                        }
+                                                                            ?>
+                                                                              <option disabled selected value> Select a hall</option>
+                                                                              <option value="<?php echo $hall01;?>" style="display:<?php echo $hall01;?>"><?php echo $hall01;?></option> 
+                                                                              <option value="<?php echo $hall02;?>" style="display:<?php echo $hall02;?>"><?php echo $hall02;?></option> 
+                                                                              <option value="<?php echo $hall03;?>" style="display:<?php echo $hall03;?>"><?php echo $hall03;?></option> 
+                                                                              <option value="<?php echo $hall04;?>" style="display:<?php echo $hall04;?>"><?php echo $hall04;?></option> 
+                                                                              <option value="<?php echo $hall05;?>" style="display:<?php echo $hall05;?>"><?php echo $hall05;?></option> 
+
+                                                            </select>
+                                                            </div>
+                                                            <td><button class="btn btn-success btn-circle ml-1" type="submit"><i class="fas fa-check text-white"></i></button> </td>
+                                                            
+                                                            </td>
+                                                            
+                                                            
+                                                            </tr><?php } ?>
+                                                            
                                                 </tbody>
-                                                <tfoot>
-                                                    <tr></tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top: 22px;">
-                            <div class="col">
-                                <div class="card shadow mb-4">
-                                    <div class="card-header py-3">
-                                        <h6 class="text-primary font-weight-bold m-0">Add Events</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <form>
-                                                <div class="form-row">
-                                                    <div class="col"><label>Date</label><input class="form-control" type="date" name="addEventDate"></div>
-                                                </div>
-                                                <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>From</label><input class="form-control" type="time" name="addEventFrom"></div>
-                                                    <div class="col"><label>To</label><input class="form-control" type="time" name="addEventTo"></div>
-                                                </div>
-                                                <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>Name of the event</label><input class="form-control" type="text" name="addEventName"></div>
-                                                </div>
-                                                <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>Flyer</label><input type="file" style="margin-left: 16px;" name="addEventFlyer"></div>
-                                                </div>
-                                                <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col">
-                                                        <div id="btnwrapperleft"><button class="btn btn-danger btn-icon-split" type="reset"><span class="text-white-50 icon"><i class="fas fa-trash"></i></span><span class="text-white text">Clear</span></button></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div id="btnwrapperright"><button class="btn btn-success btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Add</span></button></div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card shadow mb-4">
-                                    <div class="card-header py-3">
-                                        <h6 class="text-primary font-weight-bold m-0">Edit Events</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <form>
-                                                <div class="form-row">
-                                                    <div class="col"><label>Select Event</label><form class="form-inline">
-  <div class="form-group">
-     <select  class="form-control" >
-         <option>Option1</option>
-         <option>Option2</option>
-      </select>
-  </div>
-</form></div>
-                                                    <div class="col"><button class="btn btn-success btn-circle ml-1" type="submit" style="margin-top: 30px;"><i class="fas fa-redo-alt text-white"></i></button></div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col"><label>Date</label><input class="form-control" type="date" name="editEventDate"></div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col"><label>From</label><input class="form-control" type="time" name="editEventFrom"></div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col"><label>To</label><input class="form-control" type="time" name="editEventTo"></div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col"><label>Event Name</label><input class="form-control" type="text" name="editEventName"></div>
-                                                </div>
-                                                <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>Replace flyer</label><input type="file" style="margin-left: 16px;" name="editEventFlyer"></div>
-                                                </div>
-                                                <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col">
-                                                        <div id="btnwrapperleft"><button class="btn btn-danger btn-icon-split" type="reset"><span class="text-white-50 icon"><i class="fas fa-trash"></i></span><span class="text-white text">Clear</span></button></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div id="btnwrapperright"><button class="btn btn-success btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Update</span></button></div>
-                                                    </div>
-                                                </div>
-                                            </form>
+                                            </table></form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                  
                 </div>
             </div>
         </div>
