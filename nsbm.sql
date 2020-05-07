@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2020 at 10:24 AM
+-- Generation Time: May 07, 2020 at 01:55 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -45,13 +45,9 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`eventID`, `eventClub`, `eventDate`, `eventFrom`, `eventTo`, `eventName`, `eventImage`, `eventStatus`, `eventHall`) VALUES
-(1, '', '2020-05-08', '13:45:00', '15:45:00', 'Test', '', 1, NULL),
-(2, '', '2020-05-08', '13:50:00', '15:50:00', 'test', '', 1, NULL),
-(3, '', '2020-05-15', '12:12:00', '21:12:00', '12', '', 1, NULL),
-(4, '', '2020-05-15', '12:12:00', '21:12:00', '12', '', 1, NULL),
-(5, 'IEEE', '2020-05-15', '12:00:00', '14:00:00', 'adada', '', 1, NULL),
-(6, 'IEEE', '2020-05-16', '01:00:00', '02:00:00', 'sfsf', 'tickdesgin13.png', 1, NULL),
-(7, 'IEEE', '2020-05-16', '01:00:00', '02:00:00', 'sfsf', 'tickdesgin13.png', 1, NULL);
+(9, 'IEEE', '2020-05-20', '12:21:00', '12:12:00', 'hoh', 'tickdesgin13.png', 1, NULL),
+(10, 'IEEE', '2020-05-16', '12:12:00', '12:12:00', '121212112', 'blue_up.png', 1, NULL),
+(12, 'IEEE', '2020-05-08', '12:20:00', '12:40:00', 'sfsf', 'fav.png', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -74,6 +70,20 @@ INSERT INTO `halls` (`hallID`, `hallName`) VALUES
 (3, 'C003'),
 (4, 'C004'),
 (5, 'C005');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `hallview`
+-- (See below for the actual view)
+--
+CREATE TABLE `hallview` (
+`reservOwner` varchar(20)
+,`reservDate` date
+,`reservFrom` time
+,`reservTo` time
+,`reservHall` varchar(30)
+);
 
 -- --------------------------------------------------------
 
@@ -103,7 +113,13 @@ INSERT INTO `lectures` (`lectureID`, `lectureBatch`, `lectureDate`, `lectureFrom
 (43, '18.1', '2020-05-03', '07:00:00', '11:00:00', 'duplicate', 'Test 1', 1, NULL),
 (45, '18.1', '2020-05-05', '12:21:00', '15:12:00', 'adad', 'dad', 1, NULL),
 (46, '18.1', '2020-05-07', '13:13:00', '15:13:00', '131', '13', 1, 'C001'),
-(47, '19.1', '2020-05-07', '15:00:00', '14:00:00', 'adad', 'a', 1, 'C002');
+(47, '19.1', '2020-05-07', '15:00:00', '14:00:00', 'adad', 'a', 1, 'C002'),
+(49, '18.1', '2020-05-08', '12:20:00', '12:40:00', 'sgsg', 'sgg', 1, 'C002'),
+(51, '18.1', '2020-05-08', '12:15:00', '12:30:00', 'tttt', 'tt', 1, 'C003'),
+(52, '18.1', '2020-05-08', '12:20:00', '12:40:00', 'sgsgs', 'dbfvnv', 1, 'C004'),
+(53, '19.1', '2020-05-08', '12:20:00', '12:40:00', 'sfg', 'dg', 1, 'C001'),
+(54, '18.1', '2020-05-08', '12:00:00', '12:30:00', 'fhf', 'fh', 1, ''),
+(55, '18.1', '2020-05-08', '12:20:00', '12:40:00', 'safa', 'af', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -177,30 +193,6 @@ INSERT INTO `studyroomsreservations` (`reservationID`, `reservationDateTime`, `r
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_images`
---
-
-CREATE TABLE `tbl_images` (
-  `id` int(11) NOT NULL,
-  `name` varchar(200) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_images`
---
-
-INSERT INTO `tbl_images` (`id`, `name`) VALUES
-(1, ''),
-(2, ''),
-(3, ''),
-(4, 'tickdesgin13.png'),
-(5, 'tickdesgin13.png'),
-(6, 'BG.jpg'),
-(7, 'BG.jpg');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
@@ -218,6 +210,15 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`userID`, `userName`, `userDP`, `userEmail`, `userPassword`) VALUES
 (1, 'Ransara Wijayasundara', NULL, 'ransarajey@gmail.com', 'e6e061838856bf47e1de730719fb2609');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `hallview`
+--
+DROP TABLE IF EXISTS `hallview`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `hallview`  AS  select distinct `lectures`.`lectureBatch` AS `reservOwner`,`lectures`.`lectureDate` AS `reservDate`,`lectures`.`lectureFrom` AS `reservFrom`,`lectures`.`lectureTo` AS `reservTo`,`lectures`.`lectureHall` AS `reservHall` from `lectures` union select distinct `events`.`eventClub` AS `reservOwner`,`events`.`eventDate` AS `reservDate`,`events`.`eventFrom` AS `reservFrom`,`events`.`eventTo` AS `reservTo`,`events`.`eventHall` AS `reservHall` from `events` ;
 
 --
 -- Indexes for dumped tables
@@ -262,12 +263,6 @@ ALTER TABLE `studyroomsreservations`
   ADD KEY `reservationStudyRoom` (`reservationStudyRoom`);
 
 --
--- Indexes for table `tbl_images`
---
-ALTER TABLE `tbl_images`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -281,25 +276,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `eventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `eventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `lectures`
 --
 ALTER TABLE `lectures`
-  MODIFY `lectureID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `lectureID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `studyroomsreservations`
 --
 ALTER TABLE `studyroomsreservations`
   MODIFY `reservationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `tbl_images`
---
-ALTER TABLE `tbl_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`

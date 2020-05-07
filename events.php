@@ -181,42 +181,87 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <form>
-                                                <div class="form-row">
-                                                    <div class="col"><label>Select Event</label><form class="form-inline">
-                                                        <div class="form-group">
-                                                            <select  class="form-control" >
-                                                                <option>Option1</option>
-                                                                <option>Option2</option>
+                                        <form class="form-inline" method="post" action="/nsbm/assets/php/assignHallEvent.php">                
+                                            <table class="table dataTable my-0" id="dataTable">
+                                            <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Time</th>
+                                                        <th>Name</th> 
+                                                        <th>Hall</th>
+                                                        <th>&nbsp; &nbsp;Assign</th>
+                                                    </tr>
+                                                </thead>
+                                                
+                                                <tbody>
+                                                
+                                                <?php 
+            
+                                                        global $conn;
+                                                    
+                                                        $query = $conn->query("select * from events where eventClub='IEEE' AND eventDate >= DATE(NOW()) AND eventHall IS NULL ORDER BY eventDate,eventFrom");
+                                                        
+                                                    
+                                                        $i=0;
+                                                        while($rows = $query->fetch_assoc()){
+                                                        $i++;
+                                                        
+                                                        $hallAssignEvent = $rows['eventID'];
+                                                        $eventDate = $rows['eventDate'];
+                                                        $eventFrom = $rows['eventFrom'];
+                                                        $eventTo = $rows['eventTo'];
+                                                        ?>
+                                                        <tr>
+                                                            
+                                                            <td><?php echo $rows['eventDate'];?></td>
+                                                            <td><?php echo $rows['eventFrom'];?></br><?php echo $rows['eventTo'];?></td>
+                                                            <td><?php echo $rows['eventName'];?></td>
+                                                            <td>
+                                                            <div class="form-group">
+                                                            
+                                                            <div><input class="form-control" type="hidden" name="hallAssignLec" value="<?php echo $hallAssignEvent;?>" ></div>
+                                                            <select  class="form-control" name="selectedHall" >
+                                                            <?php
+                                                                $query2 = $conn->query("select reservHall from hallview where reservDate='$eventDate' AND reservFrom<'$eventTo' AND reservTo>'$eventFrom'");
+                                                                $hall01 = "C001";
+                                                                $hall02 = "C002";
+                                                                $hall03 = "C003";
+                                                                $hall04 = "C004";
+                                                                $hall05 = "C005";
+                                                                while($rows2 = $query2->fetch_assoc())
+                                                                        { 
+                                                                            if ($rows2['reserveHall']=="C001"){
+                                                                                $hall01 = "none";
+                                                                            } elseif ($rows2['reservHall']=="C002"){
+                                                                                $hall02 = "none";
+                                                                            } elseif ($rows2['reservHall']=="C003"){
+                                                                                $hall03 = "none";
+                                                                            } elseif ($rows2['reservHall']=="C004"){
+                                                                                $hall04 = "none";
+                                                                            } elseif ($rows2['reservHall']=="C005"){
+                                                                                $hall04 = "none";
+                                                                            }
+
+                                                                        }
+                                                                            ?>
+                                                                              <option disabled selected value> Select a hall</option>
+                                                                              <option value="<?php echo $hall01;?>" style="display:<?php echo $hall01;?>"><?php echo $hall01;?></option> 
+                                                                              <option value="<?php echo $hall02;?>" style="display:<?php echo $hall02;?>"><?php echo $hall02;?></option> 
+                                                                              <option value="<?php echo $hall03;?>" style="display:<?php echo $hall03;?>"><?php echo $hall03;?></option> 
+                                                                              <option value="<?php echo $hall04;?>" style="display:<?php echo $hall04;?>"><?php echo $hall04;?></option> 
+                                                                              <option value="<?php echo $hall05;?>" style="display:<?php echo $hall05;?>"><?php echo $hall05;?></option> 
+
                                                             </select>
-                                                        </div>
-                                                        </form></div>
-                                                    <div class="col"><button class="btn btn-success btn-circle ml-1" type="submit" style="margin-top: 30px;"><i class="fas fa-redo-alt text-white"></i></button></div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col"><label>Date</label><input class="form-control" type="date" name="editEventDate" required=""></div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col"><label>From</label><input class="form-control" type="time" name="editEventFrom" required=""></div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col"><label>To</label><input class="form-control" type="time" name="editEventTo" required=""></div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col"><label>Event Name</label><input class="form-control" type="text" name="editEventName" required=""></div>
-                                                </div>
-                                                <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>Replace flyer</label><input type="file" style="margin-left: 16px;" name="editEventFlyer"></div>
-                                                </div>
-                                                <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col">
-                                                        <div id="btnwrapperleft"><button class="btn btn-danger btn-icon-split" type="reset"><span class="text-white-50 icon"><i class="fas fa-trash"></i></span><span class="text-white text">Clear</span></button></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div id="btnwrapperright"><button class="btn btn-success btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Update</span></button></div>
-                                                    </div>
-                                                </div>
-                                            </form>
+                                                            </div>
+                                                            <td><button class="btn btn-success btn-circle ml-1" type="submit"><i class="fas fa-check text-white"></i></button> </td>
+                                                            
+                                                            </td>
+                                                            
+                                                            
+                                                            </tr><?php } ?>
+                                                            
+                                                </tbody>
+                                            </table></form>
                                         </div>
                                     </div>
                                 </div>

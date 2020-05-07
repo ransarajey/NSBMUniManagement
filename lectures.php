@@ -237,7 +237,7 @@
                                                             <div><input class="form-control" type="hidden" name="hallAssignLec" value="<?php echo $hallAssignLec;?>" ></div>
                                                             <select  class="form-control" name="selectedHall" >
                                                             <?php
-                                                                $query2 = $conn->query("select lectureHall from lectures where lectureDate='$lecDate' AND lectureFrom<'$lecTo' AND lectureTo>'$lecFrom'");
+                                                                $query2 = $conn->query("select reservHall from hallview where reservDate='$lecDate' AND reservFrom<'$lecTo' AND reservTo>'$lecFrom'");
                                                                 $hall01 = "C001";
                                                                 $hall02 = "C002";
                                                                 $hall03 = "C003";
@@ -245,15 +245,15 @@
                                                                 $hall05 = "C005";
                                                                 while($rows2 = $query2->fetch_assoc())
                                                                         { 
-                                                                            if ($rows2['lectureHall']=="C001"){
+                                                                            if ($rows2['reservHall']=="C001"){
                                                                                 $hall01 = "none";
-                                                                            } elseif ($rows2['lectureHall']=="C002"){
+                                                                            } elseif ($rows2['reservHall']=="C002"){
                                                                                 $hall02 = "none";
-                                                                            } elseif ($rows2['lectureHall']=="C003"){
+                                                                            } elseif ($rows2['reservHall']=="C003"){
                                                                                 $hall03 = "none";
-                                                                            } elseif ($rows2['lectureHall']=="C004"){
+                                                                            } elseif ($rows2['reservHall']=="C004"){
                                                                                 $hall04 = "none";
-                                                                            } elseif ($rows2['lectureHall']=="C005"){
+                                                                            } elseif ($rows2['reservHall']=="C005"){
                                                                                 $hall04 = "none";
                                                                             }
 
@@ -453,7 +453,7 @@
                                                             <div><input class="form-control" type="hidden" name="hallAssignLec" value="<?php echo $hallAssignLec;?>" ></div>
                                                             <select  class="form-control" name="selectedHall" >
                                                             <?php
-                                                                $query2 = $conn->query("select lectureHall from lectures where lectureDate='$lecDate' AND lectureFrom<'$lecTo' AND lectureTo>'$lecFrom'");
+                                                                $query2 = $conn->query("select reservHall from hallview where reservDate='$lecDate' AND reservFrom<'$lecTo' AND reservTo>'$lecFrom'");
                                                                 $hall01 = "C001";
                                                                 $hall02 = "C002";
                                                                 $hall03 = "C003";
@@ -461,15 +461,15 @@
                                                                 $hall05 = "C005";
                                                                 while($rows2 = $query2->fetch_assoc())
                                                                         { 
-                                                                            if ($rows2['lectureHall']=="C001"){
+                                                                            if ($rows2['reserveHall']=="C001"){
                                                                                 $hall01 = "none";
-                                                                            } elseif ($rows2['lectureHall']=="C002"){
+                                                                            } elseif ($rows2['reservHall']=="C002"){
                                                                                 $hall02 = "none";
-                                                                            } elseif ($rows2['lectureHall']=="C003"){
+                                                                            } elseif ($rows2['reservHall']=="C003"){
                                                                                 $hall03 = "none";
-                                                                            } elseif ($rows2['lectureHall']=="C004"){
+                                                                            } elseif ($rows2['reservHall']=="C004"){
                                                                                 $hall04 = "none";
-                                                                            } elseif ($rows2['lectureHall']=="C005"){
+                                                                            } elseif ($rows2['reservHall']=="C005"){
                                                                                 $hall04 = "none";
                                                                             }
 

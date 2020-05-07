@@ -152,7 +152,17 @@ public function adminLogin($adminEmail, $adminPassword){
 		return true;
 		
 	}
-
+	
+		//assign hall to event
+		public function assignHallEvent($selectedHall,$hallAssignEvent){
+			global $conn;
+		
+			$in_sql = "UPDATE events SET eventHall='$selectedHall' WHERE eventID=$hallAssignEvent";
+			
+				$conn->query($in_sql);
+				return true;
+			
+		}
 
 };
 ?>
