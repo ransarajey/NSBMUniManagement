@@ -65,7 +65,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                            <form class="form-inline" method="post" action="/nsbm/assets/php/assignComplaint.php">                
+                            <form class="form-inline" method="post" action="assets/php/assignComplaint.php">                
                                             <table class="table dataTable my-0" id="dataTable">
                                             <thead>
                                                     <tr>

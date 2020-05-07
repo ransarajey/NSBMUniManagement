@@ -243,9 +243,11 @@ public function adminLogin($adminEmail, $adminPassword){
 
 	public function addStudent($stuID,$stuName,$stuEmail,$stuBatch){
 		global $conn;
-	
-		$in_sql = "INSERT INTO students (studentID,studentName,studentEmail,studentBatch) VALUES ('$stuID','$stuName','$stuEmail','$stuBatch') ";
+		$passwordtemp = uniqid();
+		$password = md5($passwordtemp);
+		$in_sql = "INSERT INTO students (studentID,studentName,studentEmail,studentBatch,studentPassword) VALUES ('$stuID','$stuName','$stuEmail','$stuBatch','$password') ";
 		
+		echo "User Password is: $passwordtemp";
 			$conn->query($in_sql);
 			return true;
 		

@@ -180,7 +180,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                        <form class="form-inline" method="post" action="/nsbm/assets/php/assignHallEvent.php">                
+                                        <form class="form-inline" method="post" action="assets/php/assignHallEvent.php">                
                                             <table class="table dataTable my-0" id="dataTable">
                                             <thead>
                                                     <tr>
@@ -381,7 +381,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                        <form class="form-inline" method="post" action="/nsbm/assets/php/assignHallEvent.php">                
+                                        <form class="form-inline" method="post" action="assets/php/assignHallEvent.php">                
                                             <table class="table dataTable my-0" id="dataTable">
                                             <thead>
                                                     <tr>

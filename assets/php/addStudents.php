@@ -16,7 +16,7 @@ $user = new login_registration_class();
 							$addStudent = $user->addStudent($stuID,$stuName,$stuEmail,$stuBatch);
 							if($addStudent){
                                 echo "<script>alert('Lecture added  successfully!');</script>";
-                                header('Location: ../../addstudents.php');
+                                // header('Location: ../../addstudents.php');
 							}else{
 								echo "<script>alert('Error!');</script>";
 							}

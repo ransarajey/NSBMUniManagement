@@ -149,7 +149,7 @@
                                     </div>
                                     <div class="card-body">
                                              <div class="form-group">
-                                            <form method="post" action="/nsbm/assets/php/addLectures.php">
+                                            <form method="post" action="assets/php/addLectures.php">
                                                 <input type="hidden" name="id" value= "<?php echo $editlecID; ?>">
                                                 <div class="form-row">
                                                     <div><input class="form-control" type="hidden" name="addLectureBatch" value="18.1" ></div>
@@ -194,7 +194,7 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             
-                                            <form class="form-inline" method="post" action="/nsbm/assets/php/assignHall.php">                
+                                            <form class="form-inline" method="post" action="assets/php/assignHall.php">                
                                             <table class="table dataTable my-0" id="dataTable">
                                             <thead>
                                                     <tr>
@@ -365,7 +365,7 @@
                                     </div>
                                     <div class="card-body">
                                                                                <div class="form-group">
-                                            <form method="post" action="/nsbm/assets/php/addLectures.php">
+                                            <form method="post" action="assets/php/addLectures.php">
                                                 <input type="hidden" name="id" value= "<?php echo $editlecID; ?>">
                                                 <div class="form-row">
                                                     <div><input class="form-control" type="hidden" name="addLectureBatch" value="19.1" ></div>
@@ -410,7 +410,7 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             
-                                            <form class="form-inline" method="post" action="/nsbm/assets/php/assignHall.php">                
+                                            <form class="form-inline" method="post" action="assets/php/assignHall.php">                
                                             <table class="table dataTable my-0" id="dataTable">
                                             <thead>
                                                     <tr>
