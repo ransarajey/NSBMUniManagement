@@ -1,0 +1,43 @@
+#halls option[disabled] {
+  display: none;
+}
+
+.bg-gradient-primary {
+  background-color: #4e73df;
+  background-image: linear-gradient(180deg,#ffffff 10%,#ffffff);
+  background-size: cover;
+}
+
+img, svg {
+  display: block;
+  margin: auto;
+}
+
+.text-primary {
+  color: rgb(58,181,74)!important;
+}
+
+a {
+  color: #3ab54a;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+#btnwrapperright {
+  float: right;
+}
+
+#btnwrapperleft {
+  float: left;
+}
+
+.btn-success {
+  background-color: #3ab54a;
+}
+
+#btnwrappermiddle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
