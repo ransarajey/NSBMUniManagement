@@ -30,6 +30,7 @@
 </head>
 
 <body id="page-top">
+<?php require_once "assets/php/addShuttles.php"; ?>
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div class="container-fluid d-flex flex-column p-0">
@@ -74,19 +75,39 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                            <table class="table dataTable my-0" id="dataTable">
-                                                <thead>
+                                        <table class="table dataTable my-0" id="dataTable">
+                                            <thead>
                                                     <tr>
+                                                        <th>Icon</th>
                                                         <th>Time</th>
-                                                        <th>Bus No</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Airi Satou</td>
-                                                        <td>Accountant</td>
-                                                    </tr>
-                                                </tbody>
+                                                        <th>Shuttle No</th>
+                                                        <th>Actions</th>
+                                                    </tr> </thead>
+                                                    <tbody>
+                                                    <?php 
+            
+                                                        global $conn;
+                                                    
+                                                        $query = $conn->query("select * from shuttles where shuttleFrom='NSBM' ORDER BY shuttleTime ");
+                           
+                                                    
+			                                            $i=0;
+				                                        while($rows = $query->fetch_assoc()){
+                                                        $i++;
+                                                        
+                                                        $shuttleID = $rows['shuttleID'];
+                                                     
+			                                            ?>
+			                                            <tr>
+                                                            <td><img src="assets/shuttleicons/<?php echo $rows['shuttleIcon'];?>" height="42" width="42"></td>
+			                                            	<td><?php echo $rows['shuttleTime'];?></td>
+			                                            	<td><?php echo $rows['shuttleNo'];?></td>
+                                                            <td><a href="shuttles.php?edit=<?php echo $rows['shuttleID'];?> "  class="btn btn-success btn-circle ml-1" ><i class="fas fa-edit text-white"></i></a>
+                                                            <a href="assets/php/deleteShuttle.php?shuttleID=<?php echo $rows['shuttleID'];?> " class="btn btn-danger btn-circle ml-1"><i class="far fa-calendar-minus text-white"></a>
+                                                            </td>
+			                                                </tr>
+			                                                <?php } ?>
+                                                            </tbody>
                                                 <tfoot>
                                                     <tr></tr>
                                                 </tfoot>
@@ -100,16 +121,24 @@
                             <div class="col">
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                        <h6 class="text-primary font-weight-bold m-0">Add Shuttles</h6>
+                                    <?php
+                                        if($update==true):
+                                    ?>  
+                                                            <h6 class="text-primary font-weight-bold m-0">Update Shuttle</h6>
+                                      <?php else: ?>                            
+                                                            <h6 class="text-primary font-weight-bold m-0">Add Shuttle</h6>
+                                            <?php endif; ?>
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <form>
+                                            <form method="post" action="assets/php/addShuttles.php" enctype="multipart/form-data">
                                                 <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>Time</label><input class="form-control" type="time" name="addShuttleTime" required=""></div>
+                                                    <input type="hidden" name="id" value= "<?php echo $editshID; ?>">
+                                                    <input type="hidden" name="addShuttleFrom" value= "NSBM">
+                                                    <div class="col"><label>Time</label><input class="form-control" type="time" name="addShuttleTime" required="" value="<?php echo $editshTime?>"></div>
                                                 </div>
                                                 <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>Bus No</label><input class="form-control" type="text" name="addShuttleBus" required=""></div>
+                                                    <div class="col"><label>Bus No</label><input class="form-control" type="text" name="addShuttleBus" required="" value="<?php echo $editshNo?>"></div>
                                                 </div>
                                                 <div class="form-row" style="margin-top: 17px;">
                                                     <div class="col"><label>Icon</label><input type="file" style="margin-left: 20px;" name="addShuttleIcon"></div>
@@ -119,8 +148,13 @@
                                                         <div id="btnwrapperleft"><button class="btn btn-danger btn-icon-split" type="reset"><span class="text-white-50 icon"><i class="fas fa-trash"></i></span><span class="text-white text">Clear</span></button></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div id="btnwrapperright"><button class="btn btn-success btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Add</span></button></div>
-                                                    </div>
+                                                    <?php
+                                                            if($update==true):
+                                                        ?>  
+                                                                                <div id="btnwrapperright"><button name="update" class="btn btn-success btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Update</span></button></div>
+                                                            <?php else: ?>                            
+                                                        <div id="btnwrapperright"><button class="btn btn-success btn-icon-split" name="add" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Add</span></button></div>
+                                                        <?php endif; ?>                                                      </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -130,7 +164,7 @@
                         </div>
                     </div>
                     <div id="item-1-2" class="tab-pane fade" role="tabpanel" aria-labelledby="item-1-2-tab">
-                        <div class="row">
+                    <div class="row">
                             <div class="col">
                                 <div class="card shadow">
                                     <div class="card-header py-3">
@@ -138,19 +172,39 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                            <table class="table dataTable my-0" id="dataTable">
-                                                <thead>
+                                        <table class="table dataTable my-0" id="dataTable">
+                                            <thead>
                                                     <tr>
+                                                        <th>Icon</th>
                                                         <th>Time</th>
-                                                        <th>Bus No</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Airi Satou</td>
-                                                        <td>Accountant</td>
-                                                    </tr>
-                                                </tbody>
+                                                        <th>Shuttle No</th>
+                                                        <th>Actions</th>
+                                                    </tr> </thead>
+                                                    <tbody>
+                                                    <?php 
+            
+                                                        global $conn;
+                                                    
+                                                        $query = $conn->query("select * from shuttles where shuttleFrom='Makubura' ORDER BY shuttleTime ");
+                           
+                                                    
+			                                            $i=0;
+				                                        while($rows = $query->fetch_assoc()){
+                                                        $i++;
+                                                        
+                                                        $shuttleID = $rows['shuttleID'];
+                                                     
+			                                            ?>
+			                                            <tr>
+                                                            <td><img src="assets/shuttleicons/<?php echo $rows['shuttleIcon'];?>" height="42" width="42"></td>
+			                                            	<td><?php echo $rows['shuttleTime'];?></td>
+			                                            	<td><?php echo $rows['shuttleNo'];?></td>
+                                                            <td><a href="shuttles.php?edit=<?php echo $rows['shuttleID'];?> "  class="btn btn-success btn-circle ml-1" ><i class="fas fa-edit text-white"></i></a>
+                                                            <a href="assets/php/deleteShuttle.php?shuttleID=<?php echo $rows['shuttleID'];?> " class="btn btn-danger btn-circle ml-1"><i class="far fa-calendar-minus text-white"></a>
+                                                            </td>
+			                                                </tr>
+			                                                <?php } ?>
+                                                            </tbody>
                                                 <tfoot>
                                                     <tr></tr>
                                                 </tfoot>
@@ -164,16 +218,24 @@
                             <div class="col">
                                 <div class="card shadow mb-4">
                                     <div class="card-header py-3">
-                                        <h6 class="text-primary font-weight-bold m-0">Add Shuttles</h6>
+                                    <?php
+                                        if($update==true):
+                                    ?>  
+                                                            <h6 class="text-primary font-weight-bold m-0">Update Shuttle</h6>
+                                      <?php else: ?>                            
+                                                            <h6 class="text-primary font-weight-bold m-0">Add Shuttle</h6>
+                                            <?php endif; ?>
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <form>
+                                            <form method="post" action="assets/php/addShuttles.php" enctype="multipart/form-data">
                                                 <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>Time</label><input class="form-control" type="time" name="addShuttleTime"></div>
+                                                    <input type="hidden" name="id" value= "<?php echo $editshID; ?>">
+                                                    <input type="hidden" name="addShuttleFrom" value= "Makubura">
+                                                    <div class="col"><label>Time</label><input class="form-control" type="time" name="addShuttleTime" required="" value="<?php echo $editshTime?>"></div>
                                                 </div>
                                                 <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>Bus No</label><input class="form-control" type="text" name="addShuttleBus"></div>
+                                                    <div class="col"><label>Bus No</label><input class="form-control" type="text" name="addShuttleBus" required="" value="<?php echo $editshNo?>"></div>
                                                 </div>
                                                 <div class="form-row" style="margin-top: 17px;">
                                                     <div class="col"><label>Icon</label><input type="file" style="margin-left: 20px;" name="addShuttleIcon"></div>
@@ -183,42 +245,13 @@
                                                         <div id="btnwrapperleft"><button class="btn btn-danger btn-icon-split" type="reset"><span class="text-white-50 icon"><i class="fas fa-trash"></i></span><span class="text-white text">Clear</span></button></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div id="btnwrapperright"><button class="btn btn-success btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Add</span></button></div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="card shadow mb-4">
-                                    <div class="card-header py-3">
-                                        <h6 class="text-primary font-weight-bold m-0">Edit Shuttle Schedule</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <form>
-                                                <div class="form-row">
-                                                    <div class="col"><label>Select Bus</label><form class="form-inline">
-  <div class="form-group">
-     <select  class="form-control" >
-         <option>Option1</option>
-         <option>Option2</option>
-      </select>
-  </div>
-</form></div>
-                                                </div>
-                                                <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col"><label>Time</label><input class="form-control" type="time" name="editSHuttleTime"></div>
-                                                </div>
-                                                <div class="form-row" style="margin-top: 17px;">
-                                                    <div class="col">
-                                                        <div id="btnwrapperleft"><button class="btn btn-danger btn-icon-split" type="reset"><span class="text-white-50 icon"><i class="fas fa-trash"></i></span><span class="text-white text">Clear</span></button></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div id="btnwrapperright"><button class="btn btn-success btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Update</span></button></div>
-                                                    </div>
+                                                    <?php
+                                                            if($update==true):
+                                                        ?>  
+                                                                                <div id="btnwrapperright"><button name="update" class="btn btn-success btn-icon-split" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Update</span></button></div>
+                                                            <?php else: ?>                            
+                                                        <div id="btnwrapperright"><button class="btn btn-success btn-icon-split" name="add" type="submit"><span class="text-white-50 icon"><i class="fas fa-check"></i></span><span class="text-white text">Add</span></button></div>
+                                                        <?php endif; ?>                                                      </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -226,6 +259,8 @@
                                 </div>
                             </div>
                         </div>
+                    
+         
                     </div>
                 </div>
             </div>

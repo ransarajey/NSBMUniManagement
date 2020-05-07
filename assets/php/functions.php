@@ -164,6 +164,93 @@ public function adminLogin($adminEmail, $adminPassword){
 			
 		}
 
+			/**
+	---------------------------------
+	All functions for shuttles
+	---------------------------------
+	**/
+
+	public function addShuttle($shuttleFrom,$shuttleTime,$shuttleNo,$image){
+		global $conn;
+	
+		$in_sql = "INSERT INTO shuttles (shuttleFrom,shuttleTime,shuttleNo,shuttleIcon) VALUES ('$shuttleFrom','$shuttleTime','$shuttleNo','$image') ";
+		
+			$conn->query($in_sql);
+			return true;
+		}
+
+		public function updateShuttles($updateshID,$updateshTime,$updateshNo,$image){
+			global $conn;
+		
+			$in_sql = "Update shuttles SET shuttleTime='$updateshTime', shuttleNo = '$updateshNo' WHERE shuttleID='$updateshID'  ";
+			$conn->query($in_sql);
+	
+			if($image != null){
+			$in_sql2 = "Update shuttles SET shuttleIcon='$image' WHERE shuttleID='$updateshID'  ";
+			$conn->query($in_sql2);
+			}
+			return true;
+			
+		}
+
+					/**
+	---------------------------------
+	All functions for complaints
+	---------------------------------
+	**/
+	public function assignComplaint($selectedHall,$hallAssignEvent){
+		global $conn;
+		$to = "";
+	
+		$in_sql = "UPDATE complaints SET complaintAssignedTo='$selectedHall' WHERE complaintID='$hallAssignEvent'";
+		$conn->query($in_sql);
+
+		$in_sql2 = "select complaintText from complaints where complaintID='$hallAssignEvent'";
+		$query=$conn->query($in_sql2);
+	
+		
+		$i=0;
+		while($rows = $query->fetch_assoc()){
+		$i++;
+	
+		$complaintText = $rows['complaintText'];
+
+
+		}
+		
+		if($selectedHall=="Dean of FOC")
+		{
+			$to="ransarajey@gmail.com";
+		}else {
+			$to="ransaractcki@gmail.com";
+		}
+		$subject = "New Complaint Assigned to You";
+		$txt = "Complaint is:$complaintText";
+		$headers = "From: webmaster@example.com";
+
+		mail($to,$subject,$txt,$headers);
+
+			return true;
+		
+	}
+
+	
+					/**
+	---------------------------------
+	All functions for students
+	---------------------------------
+	**/
+
+	public function addStudent($stuID,$stuName,$stuEmail,$stuBatch){
+		global $conn;
+	
+		$in_sql = "INSERT INTO students (studentID,studentName,studentEmail,studentBatch) VALUES ('$stuID','$stuName','$stuEmail','$stuBatch') ";
+		
+			$conn->query($in_sql);
+			return true;
+		
+	}
+
 };
 ?>
 

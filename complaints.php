@@ -65,34 +65,59 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                <table class="table dataTable my-0" id="dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Complaint No</th>
-                                            <th>Complaint</th>
-                                            <th>Assign to</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Airi Satou</td>
-                                            <td>Accountant</td>
-                                            <td><form class="form-inline">
-  <div class="form-group">
-     <select  class="form-control" >
-         <option>Dean of FOC</option>
-         <option>Management of FOC</option>
-      </select>
-  </div>
-</form></td>
-                                            <td><button class="btn btn-success btn-circle ml-1" type="submit"><i class="fas fa-check text-white"></i></button><button class="btn btn-danger btn-circle ml-1" type="submit"><i class="fas fa-times text-white"></i></button></td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr></tr>
-                                    </tfoot>
-                                </table>
+                            <form class="form-inline" method="post" action="/nsbm/assets/php/assignComplaint.php">                
+                                            <table class="table dataTable my-0" id="dataTable">
+                                            <thead>
+                                                    <tr>
+                                                        <th>Complaint No</th>
+                                                        <th>Complaint</th>
+                                                        <th>Assigned To</th> 
+                                                        <th>&nbsp; &nbsp;Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                
+                                                <tbody>
+                                                
+                                                <?php 
+            
+                                                        global $conn;
+                                                    
+                                                        $query = $conn->query("select * from complaints");
+                                                        
+                                                    
+                                                        $i=0;
+                                                        while($rows = $query->fetch_assoc()){
+                                                        $i++;
+                                                        
+                                                        $complaintID = $rows['complaintID'];
+                                                        $complaintText = $rows['complaintText'];
+                                                        $complaintAssignedTo = $rows['complaintAssignedTo'];
+                                                        ?>
+                                                        <tr>
+                                                            
+                                                            <td><?php echo $rows['complaintID'];?></td>
+                                                            <td><textarea disabled><?php echo $rows['complaintText'];?></textarea></td>
+                                                            <td>
+                                                            <div class="form-group">
+                                                            
+                                                            <div><input class="form-control" type="hidden" name="assignComplaint" value="<?php echo $complaintID;?>" ></div>
+                                                            <select  class="form-control" name="assignedTo" >
+                                                        
+                                                                              <option disabled selected value="<?php echo $complaintAssignedTo;?>">Currently Assigned To:<?php echo $complaintAssignedTo;?></option>
+                                                                              <option value="Dean of FOC">Dean of FOC</option>
+                                                                              <option value="Management of FOC">Management of FOC</option>
+
+                                                            </select>
+                                                            </div>
+                                                            <td><button class="btn btn-success btn-circle ml-1" type="submit"><i class="fas fa-check text-white"></i></button> </td>
+                                                            
+                                                            </td>
+                                                            
+                                                            
+                                                            </tr><?php } ?>
+                                                            
+                                                </tbody>
+                                            </table></form>
                             </div>
                         </div>
                     </div>
