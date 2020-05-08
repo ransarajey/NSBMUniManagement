@@ -241,15 +241,12 @@ public function adminLogin($adminEmail, $adminPassword){
 	---------------------------------
 	**/
 
-	public function addStudent($stuID,$stuName,$stuEmail,$stuBatch){
+	public function addStudent($stuID,$stuName,$stuEmail,$stuBatch,$password){
 		global $conn;
-		$passwordtemp = uniqid();
-		$password = md5($passwordtemp);
-		$in_sql = "INSERT INTO students (studentID,studentName,studentEmail,studentBatch,studentPassword) VALUES ('$stuID','$stuName','$stuEmail','$stuBatch','$password') ";
 		
-		echo "User Password is: $passwordtemp";
-			$conn->query($in_sql);
-			return true;
+		$in_sql = "INSERT INTO students (studentID,studentName,studentEmail,studentBatch,studentPassword) VALUES ('$stuID','$stuName','$stuEmail','$stuBatch','$password') ";
+		$conn->query($in_sql);
+		return true;
 		
 	}
 
