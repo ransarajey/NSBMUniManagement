@@ -62,11 +62,14 @@
                     <h6 class="text-primary m-0 font-weight-bold">Add Students</h6>
                 </div>
                 <div class="card-body">
-                    <form class="user" method="post" action="assets/php/addStudents.php">
+                    <form class="user" method="post" action="assets/php/addStudents.php"  enctype="multipart/form-data">
                         <div class="form-group"><input class="form-control form-control-user" type="text" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Student ID" name="registerID"></div>
                         <div class="form-group"><input class="form-control form-control-user" type="text" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Student's Name" name="registerName"></div>
                         <div class="form-group"><input class="form-control form-control-user" type="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="registerEmail"></div>
-                        <div class="form-group"><input class="form-control form-control-user" type="text" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Student's Batch" name="registerBatch"></div><button class="btn btn-primary btn-block text-white btn-user"
+                        <div class="form-group"><input class="form-control form-control-user" type="text" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Student's Batch" name="registerBatch"></div>
+                        <div class="form-group"><label>Student's Image:</label><input type="file" style="margin-left: 16px;" name="registerDP"></div>
+
+                        <button class="btn btn-primary btn-block text-white btn-user"
                             type="submit" style="background-color: rgb(58,181,74);">Register</button>
                         <hr>
                     </form>

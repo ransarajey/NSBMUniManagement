@@ -241,10 +241,10 @@ public function adminLogin($adminEmail, $adminPassword){
 	---------------------------------
 	**/
 
-	public function addStudent($stuID,$stuName,$stuEmail,$stuBatch,$password){
+	public function addStudent($stuID,$stuName,$stuEmail,$stuBatch,$password,$image){
 		global $conn;
 		
-		$in_sql = "INSERT INTO students (studentID,studentName,studentEmail,studentBatch,studentPassword) VALUES ('$stuID','$stuName','$stuEmail','$stuBatch','$password') ";
+		$in_sql = "INSERT INTO students (studentID,studentName,studentEmail,studentBatch,studentPassword,studentDP) VALUES ('$stuID','$stuName','$stuEmail','$stuBatch','$password','$image') ";
 		$conn->query($in_sql);
 		return true;
 		
