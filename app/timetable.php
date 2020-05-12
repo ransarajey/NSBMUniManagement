@@ -40,7 +40,7 @@
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div >
-                        <div class="dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><img class="border rounded-circle img-profile" src="assets/img/download.jpg" style="width: 48px;"><span class="mr-2 text-gray-600 small" style="margin-left: 9px;"><?php echo $userName; ?>></span></a>
+                        <div class="dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><img class="border rounded-circle img-profile" src="../assets/images/<?php echo $userDP ?>" style="width: 48px;"><span class="mr-2 text-gray-600 small" style="margin-left: 9px;"><?php echo $userName; ?></span></a>
                             <div
                                 class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="logout.php"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a></div>
                     </div>
@@ -68,36 +68,94 @@
                         <div class="card-body" style="padding: 0px;">
                             <div id="nav-tabContent" class="tab-content">
                                 <div id="item-1-1" class="tab-pane fade show active" role="tabpanel" aria-labelledby="item-1-1-tab" style="margin-right: -19px;margin-left: -17px;">
-                                    <section>
+                                    
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding: 0px;padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
+                                                
+
+
+                                                <?php 
+            
+                                                    global $conn;
+                                                
+                                                    $query = $conn->query("select * from lectures where  lectureDate = DATE(NOW()) AND lectureBatch='$userBatch' ORDER BY lectureDate,lectureFrom ");
+
+                                                
+                                                    $i=0;
+                                                    while($rows = $query->fetch_assoc()){
+                                                    $i++;
+                                                    
+                                                    $lecHall = $rows['lectureHall'];
+                                                    $nullHall = "N/A";
+                                                    ?>
+                                                    <table class="table">
+
                                                     <div class="bg-light border rounded shadow card" data-bs-hover-animate="pulse">
-                                                        <div class="card-body" style="padding: 2px;"><a class="btn btn-outline-primary active text-left" role="button" style="font-weight: bold;font-family: Nunito, sans-serif;font-size: 13px;color: rgb(55,55,55);font-style: normal;">Human Computer Interaction</a>
-                                                            <div
-                                                                class="table-responsive">
-                                                                <table class="table">
-                                                                    <thead>
-                                                                        <tr></tr>
-                                                                    </thead>
+                                                        <div class="card-body" style="padding: 2px;"><a class="btn btn-outline-primary active text-left" role="button" style="font-weight: bold;font-family: Nunito, sans-serif;font-size: 13px;color: rgb(55,55,55);font-style: normal;"><?php echo $rows['lectureName'];?></a>
+                                                            
+                                                                
+                                                                    
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td style="font-size: 13px;">09:00<br></td>
-                                                                            <td style="font-size: 13px;">12:00<br></td>
-                                                                            <td style="font-size: 13px;">Mrs.Pavithra Subashini</td>
-                                                                            <td style="font-size: 13px;">C2 001</td>
+                                                                            <td style="font-size: 13px;"><?php echo $rows['lectureFrom'];?><br><?php echo $rows['lectureTo'];?></td>   
+                                                                            <td style="font-size: 13px;"><?php echo $rows['lectureLecturer'];?></td>
+                                                                            <td style="font-size: 13px;"><?php if (isset($lecHall)) {echo $lecHall;} else {echo $nullHall;} ?></td>
                                                                         </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                        </div>
-                                                    </div>
+                                                                    </tbody>  </table> <?php } ?>
+                                                              
+                                                               
+                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                </div>
-                                </section>
+                                
+                               
                             </div>
-                            <div id="item-1-2" class="tab-pane fade" role="tabpanel" aria-labelledby="item-1-2-tab"></div>
+                            <div id="item-1-2" class="tab-pane fade" role="tabpanel" aria-labelledby="item-1-2-tab">
+                            
+                            <div class="container">
+                                            <div class="row">
+                                                <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding: 0px;padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
+                                                
+
+
+                                                <?php 
+            
+                                                    global $conn;
+                                                
+                                                    $query = $conn->query("select * from lectures where  lectureDate = CURDATE() + INTERVAL 1 DAY AND lectureBatch='$userBatch' ORDER BY lectureDate,lectureFrom ");
+
+                                                
+                                                    $i=0;
+                                                    while($rows = $query->fetch_assoc()){
+                                                    $i++;
+                                                    
+                                                    $lecHall = $rows['lectureHall'];
+                                                    $nullHall = "N/A";
+                                                    ?>
+                                                    <table class="table">
+
+                                                    <div class="bg-light border rounded shadow card" data-bs-hover-animate="pulse">
+                                                        <div class="card-body" style="padding: 2px;"><a class="btn btn-outline-primary active text-left" role="button" style="font-weight: bold;font-family: Nunito, sans-serif;font-size: 13px;color: rgb(55,55,55);font-style: normal;"><?php echo $rows['lectureName'];?></a>
+                                                            
+                                                                
+                                                                    
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td style="font-size: 13px;"><?php echo $rows['lectureFrom'];?><br><?php echo $rows['lectureTo'];?></td>   
+                                                                            <td style="font-size: 13px;"><?php echo $rows['lectureLecturer'];?></td>
+                                                                            <td style="font-size: 13px;"><?php if (isset($lecHall)) {echo $lecHall;} else {echo $nullHall;} ?></td>
+                                                                        </tr>
+                                                                    </tbody>  </table> <?php } ?>
+                                                              
+                                                               
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -38,7 +38,7 @@
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div >
-                        <div class="dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><img class="border rounded-circle img-profile" src="assets/img/download.jpg" style="width: 48px;"><span class="mr-2 text-gray-600 small" style="margin-left: 9px;"><?php echo $userName; ?></span></a>
+                        <div class="dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><img class="border rounded-circle img-profile" src="../assets/images/<?php echo $userDP; ?>" style="width: 48px;"><span class="mr-2 text-gray-600 small" style="margin-left: 9px;"><?php echo $userName; ?></span></a>
                             <div
                                 class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="logout.php"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a></div>
                     </div>
@@ -78,11 +78,26 @@
                                                                         <tr></tr>
                                                                     </thead>
                                                                     <tbody>
+
+                                                                    <?php 
+            
+                                                        global $conn;
+                                                    
+                                                        $query = $conn->query("select * from shuttles where shuttleFrom='Makubura' ORDER BY shuttleTime ");
+                           
+                                                    
+			                                            $i=0;
+				                                        while($rows = $query->fetch_assoc()){
+                                                        $i++;
+                                                
+                                                     
+			                                            ?>
+
                                                                         <tr>
-                                                                            <td class="text-center d-flex justify-content-center align-items-center" style="font-size: 13px;margin-top: 29px;"><i class="fas fa-bus-alt"></i></td>
-                                                                            <td class="text-center d-flex justify-content-center align-items-center" style="font-size: 13px;"><i class="far fa-clock"></i><span style="margin-left: 5px;">08:10</span></td>
-                                                                            <td style="font-size: 13px;"><img src="assets/img/shuttle-bus-main-image-1.jpg" style="height: 116px;"></td>
-                                                                        </tr>
+                                                                            <td class="text-center d-flex justify-content-center align-items-center" style="font-size: 13px;margin-top: 29px;"><i class="fas fa-bus-alt"></i><span style="margin-left: 5px;"><?php echo $rows['shuttleNo'];?></span></td>
+                                                                            <td class="text-center d-flex justify-content-center align-items-center" style="font-size: 13px;"><i class="far fa-clock"></i><span style="margin-left: 5px;"><?php echo $rows['shuttleTime'];?></span></td>
+                                                                            <td style="font-size: 13px;"><img src="../assets/shuttleicons/<?php echo $rows['shuttleIcon'];?>" style="height: 116px;"></td>
+                                                                        </tr> <?php } ?>
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -93,7 +108,49 @@
                                         </div>
                                     </section>
                                 </div>
-                                <div id="item-1-2" class="tab-pane fade" role="tabpanel" aria-labelledby="item-1-2-tab"></div>
+                                <div id="item-1-2" class="tab-pane fade" role="tabpanel" aria-labelledby="item-1-2-tab">
+                                <section>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding: 0px;padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
+                                                    <div class="bg-light border rounded shadow card" data-bs-hover-animate="pulse">
+                                                        <div class="card-body" style="padding: 2px;">
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+                                                                    <thead>
+                                                                        <tr></tr>
+                                                                    </thead>
+                                                                    <tbody>
+
+                                                                    <?php 
+            
+                                                        global $conn;
+                                                    
+                                                        $query = $conn->query("select * from shuttles where shuttleFrom='NSBM' ORDER BY shuttleTime ");
+                           
+                                                    
+			                                            $i=0;
+				                                        while($rows = $query->fetch_assoc()){
+                                                        $i++;
+                                                
+                                                     
+			                                            ?>
+
+                                                                        <tr>
+                                                                            <td class="text-center d-flex justify-content-center align-items-center" style="font-size: 13px;margin-top: 29px;"><i class="fas fa-bus-alt"></i><span style="margin-left: 5px;"><?php echo $rows['shuttleNo'];?></span></td>
+                                                                            <td class="text-center d-flex justify-content-center align-items-center" style="font-size: 13px;"><i class="far fa-clock"></i><span style="margin-left: 5px;"><?php echo $rows['shuttleTime'];?></span></td>
+                                                                            <td style="font-size: 13px;"><img src="../assets/shuttleicons/<?php echo $rows['shuttleIcon'];?>" style="height: 116px;"></td>
+                                                                        </tr> <?php } ?>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -120,7 +120,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                        <table class="table dataTable my-0" id="dataTable">
+                    <table class="table dataTable my-0" id="dataTable">
                             <thead>
                                 <tr>
                                 <th>Date</th>
