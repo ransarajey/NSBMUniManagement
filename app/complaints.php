@@ -57,9 +57,9 @@
                     <h6 class="text-primary m-0 font-weight-bold">Complaints &amp; Suggestions</h6>
                 </div>
                 <div class="card-body">
-                    <form method="post">
-                        <div class="form-group"><textarea class="form-control" name="message" placeholder="Type your complaint or suggestion..." rows="14"></textarea></div>
-                        <div class="form-group"><button class="btn btn-primary" type="submit" style="background-color: rgb(57,181,74);">SEND</button></div>
+                    <form method="post" action="assets/php/sendComplaint.php">
+                        <div class="form-group"><textarea class="form-control" name="complaint" placeholder="Type your complaint or suggestion..." rows="14"></textarea></div>
+                        <div class="form-group"><button class="btn btn-primary" name="submit" type="submit" style="background-color: rgb(57,181,74);">SEND</button></div>
                     </form>
                 </div>
             </div>

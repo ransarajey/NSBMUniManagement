@@ -56,39 +56,85 @@
                     <h6 class="text-primary m-0 font-weight-bold">Study Room Availability</h6>
                 </div>
                 <div class="card-body">
+
+                <?php
+                                    global $conn;
+                                    $query2 = $conn->query("select * from studyrooms");
+                                    
+                                    $C104 = 0;
+                                    $C105 = 0;
+                                    $C106 = 0;
+                                    $C203 = 0;
+                                    $C204 = 0;
+                                    $C205 = 0;
+                                    while($rows2 = $query2->fetch_assoc())
+                                            {   if ($rows2['studyRoomName']=="C104" && $rows2['studyRoomAvailability']=='1')
+                                                $C104 = 1;
+                                             elseif ($rows2['studyRoomName']=="C105" && $rows2['studyRoomAvailability']=='1')
+                                                $C105 = 1;
+                                             elseif ($rows2['studyRoomName']=="C106" && $rows2['studyRoomAvailability']=='1')
+                                                $C106 = 1;
+                                             elseif ($rows2['studyRoomName']=="C203" && $rows2['studyRoomAvailability']=='1')
+                                                $C203 = 1;
+                                             elseif ($rows2['studyRoomName']=="C204" && $rows2['studyRoomAvailability']=='1')
+                                                $C204 = 1;
+                                            elseif ($rows2['studyRoomName']=="C205" && $rows2['studyRoomAvailability']=='1')
+                                                $C205 = 1;}
+                                                                                                                        
+                                                ?>
+                                                    
+                                       
+
+
                     <div class="row">
-                        <div class="col" style="margin: 7px;">
-                            <div style="background-color: #25b14c;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i>
+                        <div class="col" style="margin: 2px;">
+                        <?php   if($C104==1): ?>   <div style="background-color: #189665;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i>
+                        <?php else: ?>             <div style="background-color: #961818;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i> 
+                        <?php endif; ?>      
                                 <h1 class="d-flex justify-content-center" style="color: rgb(255,255,255);">C104</h1>
                             </div>
                         </div>
-                        <div class="col" style="margin: 7px;">
-                            <div style="background-color: #25b14c;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i>
-                                <h1 class="d-flex justify-content-center" style="color: rgb(255,255,255);">C104</h1>
+                        <div class="col" style="margin: 2px;">
+                        <?php   if($C105==1): ?>   <div style="background-color: #189665;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i>
+                        <?php else: ?>             <div style="background-color: #961818;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i> 
+                        <?php endif; ?>
+                                <h1 class="d-flex justify-content-center" style="color: rgb(255,255,255);">C105</h1>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col" style="margin: 7px;">
-                            <div style="background-color: #25b14c;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i>
-                                <h1 class="d-flex justify-content-center" style="color: rgb(255,255,255);">C104</h1>
+                        <div class="col" style="margin: 2px;">
+                        <?php   if($C106==1): ?>   <div style="background-color: #189665;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i>
+                        <?php else: ?>             <div style="background-color: #961818;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i> 
+                        <?php endif; ?>
+
+                                <h1 class="d-flex justify-content-center" style="color: rgb(255,255,255);">C106</h1>
                             </div>
                         </div>
-                        <div class="col" style="margin: 7px;">
-                            <div style="background-color: #25b14c;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i>
-                                <h1 class="d-flex justify-content-center" style="color: rgb(255,255,255);">C104</h1>
+                        <div class="col" style="margin: 2px;">
+                        <?php   if($C203==1): ?>   <div style="background-color: #189665;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i>
+                        <?php else: ?>             <div style="background-color: #961818;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i> 
+                        <?php endif; ?>
+
+                                <h1 class="d-flex justify-content-center" style="color: rgb(255,255,255);">C203</h1>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col" style="margin: 7px;">
-                            <div style="background-color: #25b14c;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i>
-                                <h1 class="d-flex justify-content-center" style="color: rgb(255,255,255);">C104</h1>
+                        <div class="col" style="margin: 2px;">
+                        <?php   if($C204==1): ?>   <div style="background-color: #189665;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i>
+                        <?php else: ?>             <div style="background-color: #961818;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i> 
+                        <?php endif; ?>
+
+                                <h1 class="d-flex justify-content-center" style="color: rgb(255,255,255);">C204</h1>
                             </div>
                         </div>
-                        <div class="col" style="margin: 7px;">
-                            <div style="background-color: #25b14c;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i>
-                                <h1 class="d-flex justify-content-center" style="color: rgb(255,255,255);">C104</h1>
+                        <div class="col" style="margin: 2px;">
+                        <?php   if($C205==1): ?>   <div style="background-color: #189665;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i>
+                        <?php else: ?>             <div style="background-color: #961818;padding: 18px;"><i class="fas fa-chalkboard d-flex justify-content-center align-items-center" style="font-size: 48px;color: rgb(255,255,255);"></i> 
+                        <?php endif; ?>
+
+                                <h1 class="d-flex justify-content-center" style="color: rgb(255,255,255);">C205</h1>
                             </div>
                         </div>
                     </div>

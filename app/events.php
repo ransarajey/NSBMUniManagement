@@ -59,40 +59,54 @@
                     </div>
                     <div class="card">
                         <div class="card-body" style="padding: 0px;">
-                            <section>
-                                <div class="container" style="padding: 0px;padding-right: -14px;">
-                                    <div class="row">
-                                        <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding: 0px;padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
-                                            <div class="bg-light border rounded shadow card" data-bs-hover-animate="pulse">
-                                                <div class="card-body" style="padding: 2px;"><a class="btn btn-outline-primary active text-left" role="button" style="font-weight: bold;font-family: Nunito, sans-serif;font-size: 13px;color: rgb(55,55,55);font-style: normal;">IEEE DAY</a>
-                                                    <div class="table-responsive">
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr></tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td style="font-size: 13px;"><img src="assets/img/download.png" style="height: 183px;"></td>
-                                                                    <td class="text-center d-flex justify-content-center align-items-center" style="font-size: 13px;margin-top: 14px;">
-                                                                        <div class="col" style="padding-right: 0px;padding-left: 0px;"><i class="far fa-calendar-alt"></i></div>
-                                                                        <div class="col"><span class="text-nowrap" style="padding-left: 7px;">2020-10-01</span></div><br></td>
-                                                                    <td class="text-center d-flex justify-content-center align-items-center" style="font-size: 13px;margin-top: 14px;">
-                                                                        <div class="col" style="padding-right: 0px;padding-left: 0px;"><i class="fas fa-clock d-flex justify-content-start"></i></div>
-                                                                        <div class="col text-left d-flex justify-content-start" style="padding-left: 0px;padding-right: 24px;"><span class="text-nowrap text-left d-flex justify-content-start" style="padding-left: 7px;">08:00 PM<br>12: 00 PM<br></span></div><br></td>
-                                                                    <td class="text-center d-flex justify-content-center align-items-center"
-                                                                        style="font-size: 13px;margin-top: 14px;">
-                                                                        <div class="col" style="padding-right: 0px;padding-left: 0px;"><i class="fas fa-map-marker d-flex justify-content-start"></i></div>
-                                                                        <div class="col" style="padding: 0px;padding-right: 30px;"><span class="text-nowrap" style="padding-left: 0px;">C2 - 001</span></div><br></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding: 0px;padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
+                                                
+
+
+                                                <?php 
+            
+                                                    global $conn;
+                                                
+                                                    $query = $conn->query("select * from events where eventDate >= DATE(NOW()) ORDER BY eventDate,eventFrom ");
+                                                
+                                                    $i=0;
+                                                    while($rows = $query->fetch_assoc()){
+                                                    $i++;
+                                                    
+                                                    $evHall = $rows['eventHall'];
+                                                    $nullHall = "N/A";
+                                                
+                                                    ?>
+                                                    <table class="table">
+
+                                                    <div class="bg-light border rounded shadow card" data-bs-hover-animate="pulse">
+                                                        <div class="card-body" style="padding: 2px;"><a class="btn btn-outline-primary active text-left" role="button" style="font-weight: bold;font-family: Nunito, sans-serif;font-size: 13px;color: rgb(55,55,55);font-style: normal;"><?php echo $rows['eventName'];?></a>
+                                                            
+                                                                
+                                                                    
+                                                                    <tbody>
+                                                                        <tr>
+                                                                        <td style="font-size: 13px;"><img src="../assets/images/<?php echo $rows['eventImage'];?>" style="height: 183px;"></td>
+        <td class="text-center d-flex justify-content-center align-items-center" style="font-size: 13px;margin-top: 14px;">
+            <div class="col" style="padding-right: 0px;padding-left: 0px;"><i class="far fa-calendar-alt"></i></div>
+            <div class="col"><span class="text-nowrap" style="padding-left: 7px;"><?php echo $rows['eventDate'];?></span></div><br></td>
+        <td class="text-center d-flex justify-content-center align-items-center" style="font-size: 13px;margin-top: 14px;">
+            <div class="col" style="padding-right: 0px;padding-left: 0px;"><i class="fas fa-clock d-flex justify-content-start"></i></div>
+            <div class="col text-left d-flex justify-content-start" style="padding-left: 0px;padding-right: 24px;"><span class="text-nowrap text-left d-flex justify-content-start" style="padding-left: 7px;"><?php echo $rows['eventFrom'];?><br><?php echo $rows['eventTo'];?><br></span></div><br></td>
+        <td class="text-center d-flex justify-content-center align-items-center"
+            style="font-size: 13px;margin-top: 14px;">
+            <div class="col" style="padding-right: 0px;padding-left: 0px;"><i class="fas fa-map-marker d-flex justify-content-start"></i></div>
+            <div class="col" style="padding: 0px;padding-right: 30px;"><span class="text-nowrap" style="padding-left: 0px;"><?php if (isset($evHall)) {echo $evHall;} else {echo $nullHall;} ?></span></div><br></td>
+                                                                        </tr>
+                                                                    </tbody>  </table> <?php } ?>
+                                                              
+                                                               
+                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </section>
                         </div>
                     </div>
                 </div>

@@ -40,6 +40,15 @@ class login_registration_class{
     unset($_SESSION['userDP']);
 		
 		session_destroy();
+  }
+  
+  public function sendComplaint($complaint){
+		global $conn;
+		
+		$in_sql = "INSERT INTO complaints (complaintText) VALUES ('$complaint') ";
+		$conn->query($in_sql);
+		return true;
+		
 	}
 };
 ?>
