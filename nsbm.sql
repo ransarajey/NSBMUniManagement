@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2020 at 04:23 PM
+-- Generation Time: May 12, 2020 at 08:13 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -34,6 +34,13 @@ CREATE TABLE `complaints` (
   `complaintAssignedTo` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `complaints`
+--
+
+INSERT INTO `complaints` (`complaintID`, `complaintText`, `complaintAssignedTo`) VALUES
+(5, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '');
+
 -- --------------------------------------------------------
 
 --
@@ -51,6 +58,14 @@ CREATE TABLE `events` (
   `eventStatus` tinyint(1) NOT NULL DEFAULT '1',
   `eventHall` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`eventID`, `eventClub`, `eventDate`, `eventFrom`, `eventTo`, `eventName`, `eventImage`, `eventStatus`, `eventHall`) VALUES
+(17, 'IEEE', '2020-05-15', '08:00:00', '12:00:00', 'IEEE Day', 'ieeeday2019.png', 1, NULL),
+(18, 'AARC', '2020-05-20', '15:00:00', '16:00:00', 'AAARC Gathering', 'aarc.jpg', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -106,6 +121,20 @@ CREATE TABLE `lectures` (
   `lectureHall` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `lectures`
+--
+
+INSERT INTO `lectures` (`lectureID`, `lectureBatch`, `lectureDate`, `lectureFrom`, `lectureTo`, `lectureName`, `lectureLecturer`, `lectureStatus`, `lectureHall`) VALUES
+(5, '18.1', '2020-05-13', '09:00:00', '12:00:00', 'Introduction to IoT', 'Dr. Chandana Perera', 1, 'C001'),
+(6, '18.1', '2020-05-13', '14:00:00', '17:00:00', 'Servers, Datacenters and Cloud', 'Mr. Chamindra Attanayake', 1, 'C001'),
+(7, '18.1', '2020-05-12', '09:00:00', '12:00:00', 'Integrating Project', 'Ms. Dileeka Alwis', 1, 'C001'),
+(8, '18.1', '2020-05-12', '14:00:00', '17:00:00', 'Human Computer Interaction', 'Ms. Pavithra Subhashini', 1, 'C001'),
+(9, '19.1', '2020-05-12', '09:00:00', '12:00:00', 'Network & System Administration', 'Dr. Lasith Gunawardena', 1, NULL),
+(10, '19.1', '2020-05-12', '14:00:00', '17:00:00', 'Computer Networks', 'Mr. Chamindra Attanayake', 1, NULL),
+(11, '19.1', '2020-05-13', '09:00:00', '12:00:00', 'Network and Security Programming', 'Mr. Harshapriya Rajakaruna', 1, NULL),
+(13, '19.1', '2020-05-13', '14:00:00', '17:00:00', 'Distributed Systems', 'Mr. Rasika Alahakoon', 1, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -120,6 +149,18 @@ CREATE TABLE `shuttles` (
   `shuttleIcon` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `shuttles`
+--
+
+INSERT INTO `shuttles` (`shuttleID`, `shuttleFrom`, `shuttleTime`, `shuttleNo`, `shuttleIcon`) VALUES
+(4, 'NSBM', '09:00:00', 'NB-1200', 'sh1.png'),
+(5, 'NSBM', '12:00:00', 'NA-1450', 'sh2.png'),
+(6, 'Makubura', '09:00:00', 'NH-8723', 'sh3.png'),
+(7, 'Makubura', '12:00:00', 'NA-8621', 'sh4.png'),
+(8, 'NSBM', '07:00:00', 'NH-8723', 'sh3.png'),
+(9, 'NSBM', '14:00:00', 'NA-8621', 'sh4.png');
+
 -- --------------------------------------------------------
 
 --
@@ -130,16 +171,19 @@ CREATE TABLE `students` (
   `studentID` int(10) NOT NULL,
   `studentName` varchar(40) NOT NULL,
   `studentEmail` varchar(60) NOT NULL,
-  `studentBatch` varchar(5) NOT NULL
+  `studentBatch` varchar(5) NOT NULL,
+  `studentPassword` varchar(200) NOT NULL,
+  `studentDP` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`studentID`, `studentName`, `studentEmail`, `studentBatch`) VALUES
-(10023517, 'Ransara Wijayasundara', 'ransarajey@mail.com', '18.1'),
-(10026026, 'Kasun Rukmaldeniya', 'rukaatricks.com@gmail.com', '18.1');
+INSERT INTO `students` (`studentID`, `studentName`, `studentEmail`, `studentBatch`, `studentPassword`, `studentDP`) VALUES
+(10023517, 'Ransara Wijayasundara', 'ransarajey@gmail.com', '18.1', '202cb962ac59075b964b07152d234b70', ''),
+(10026021, 'Hasith Gunathilake', 'hasith@gmail.com', '19.1', '202cb962ac59075b964b07152d234b70', 'hasith.jpg'),
+(10026026, 'Kasun Rukmaldeniya', 'kasun@gmail.com', '18.1', '202cb962ac59075b964b07152d234b70', 'ruk.jpg');
 
 -- --------------------------------------------------------
 
@@ -158,11 +202,11 @@ CREATE TABLE `studyrooms` (
 --
 
 INSERT INTO `studyrooms` (`studyRoomID`, `studyRoomName`, `studyRoomAvailability`) VALUES
-(1, 'C104', 1),
-(2, 'C105', 0),
+(1, 'C104', 0),
+(2, 'C105', 1),
 (3, 'C106', 1),
 (4, 'C203', 1),
-(5, 'C204', 1),
+(5, 'C204', 0),
 (6, 'C205', 1);
 
 -- --------------------------------------------------------
@@ -188,7 +232,10 @@ INSERT INTO `studyroomsreservations` (`reservationID`, `reservationDateTime`, `r
 (4, '2020-05-01 18:44:21', 'C104', 10023517, 0.5),
 (5, '2020-05-01 18:58:23', 'C105', 10023517, 0.5),
 (6, '2020-05-01 19:02:40', 'C105', 10023517, 1),
-(7, '2020-05-05 20:27:12', 'C104', 10023517, 0.5);
+(7, '2020-05-05 20:27:12', 'C104', 10023517, 0.5),
+(8, '2020-05-12 07:36:27', 'C104', 10023517, 0.5),
+(9, '2020-05-12 07:47:41', 'C104', 10023517, 0.5),
+(10, '2020-05-12 17:45:34', 'C204', 10023517, 0.5);
 
 -- --------------------------------------------------------
 
@@ -288,31 +335,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `complaintID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `complaintID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `eventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `eventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `lectures`
 --
 ALTER TABLE `lectures`
-  MODIFY `lectureID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `lectureID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `shuttles`
 --
 ALTER TABLE `shuttles`
-  MODIFY `shuttleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `shuttleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `studyroomsreservations`
 --
 ALTER TABLE `studyroomsreservations`
-  MODIFY `reservationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `reservationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
