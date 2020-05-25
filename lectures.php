@@ -336,7 +336,7 @@
                                                             <td><?php if (isset($lecHall)) {echo $lecHall;} else {echo $nullHall;} ?></td>
                                                             
                                                             <td><a href="lectures.php?edit=<?php echo $rows['lectureID'];?> "  class="btn btn-success btn-circle ml-1" ><i class="fas fa-edit text-white"></i></a>
-                                                            <a href="assets/php/releaseHall.php?lectureID=<?php echo $rows['lectureID'];?> " class="btn btn-warning btn-circle ml-1" ><i class="fas fa-folder-minus"></i></a>
+                                                            <a href="assets/php/releaseLecHall.php?lectureID=<?php echo $rows['lectureID'];?> " class="btn btn-warning btn-circle ml-1" ><i class="fas fa-folder-minus"></i></a>
                                                             <a href="assets/php/deleteLecture.php?lectureID=<?php echo $rows['lectureID'];?> " class="btn btn-danger btn-circle ml-1"><i class="far fa-calendar-minus text-white"></a>
                                                             </td>
 			                                                </tr>

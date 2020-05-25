@@ -15,15 +15,15 @@
 ?>
 
 <?php
-    $lectureID = $_GET['lectureID'];
-    $query = "UPDATE lectures SET lectureHall=NULL WHERE lectureID = $lectureID"; 
+    $eventID = $_GET['eventID'];
+    $query = "UPDATE events SET eventHall=NULL WHERE eventID = $eventID"; 
 
     if (mysqli_query($conn, $query)) {
         mysqli_close($conn);
-        header('Location: ../../lectures.php');
+        header('Location: ../../events.php');
         exit;
     } else {
-        echo "Error deleting record";
+        echo "Error updating record";
     }
 	
 ?>

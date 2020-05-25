@@ -111,6 +111,7 @@
                                                             <td><?php if (isset($evHall)) {echo $evHall;} else {echo $nullHall;} ?></td>
                                                             
                                                             <td><a href="events.php?edit=<?php echo $rows['eventID'];?> "  class="btn btn-success btn-circle ml-1" ><i class="fas fa-edit text-white"></i></a>
+                                                            <a href="assets/php/releaseEventHall.php?eventID=<?php echo $rows['eventID'];?> " class="btn btn-warning btn-circle ml-1" ><i class="fas fa-folder-minus"></i></a>
                                                             <a href="assets/php/deleteEvent.php?eventID=<?php echo $rows['eventID'];?> " class="btn btn-danger btn-circle ml-1"><i class="far fa-calendar-minus text-white"></a>
                                                             </td>
 			                                                </tr>
@@ -312,6 +313,7 @@
                                                             <td><?php if (isset($evHall)) {echo $evHall;} else {echo $nullHall;} ?></td>
                                                             
                                                             <td><a href="events.php?edit=<?php echo $rows['eventID'];?> "  class="btn btn-success btn-circle ml-1" ><i class="fas fa-edit text-white"></i></a>
+                                                            <a href="assets/php/releaseEventHall.php?eventID=<?php echo $rows['eventID'];?> " class="btn btn-warning btn-circle ml-1" ><i class="fas fa-folder-minus"></i></a>
                                                             <a href="assets/php/deleteEvent.php?eventID=<?php echo $rows['eventID'];?> " class="btn btn-danger btn-circle ml-1"><i class="far fa-calendar-minus text-white"></a>
                                                             </td>
 			                                                </tr>
