@@ -11,7 +11,7 @@
 		header('Location: index.php');
 		exit();
 	}
-	
+	 
 ?>
 
 <?php
@@ -19,8 +19,9 @@
 					if($_SERVER['REQUEST_METHOD'] == "POST"){
 
                         $selectedHall   = $_POST['selectedHall'];
-                        $hallAssignLec   = $_POST['hallAssignLec'];
-                        						
+						$hallAssignLec   = $_POST['hallAssignLec'];
+						echo($selectedHall);
+                        echo($hallAssignLec);
 							$assignHall = $user->assignHall($selectedHall,$hallAssignLec);
 							if($assignHall){
                                 echo "<script>alert('Hall has been assigned!');</script>";

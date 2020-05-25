@@ -3,7 +3,7 @@ class databaseConnection{
 	public function __construct(){
 		global $conn;
 		
-		$conn = new mysqli("localhost", "root", "" , "nsbm");
+		$conn = new mysqli("localhost", "root", "root" , "nsbm");
 		//check error 
 		if(!$conn){
 			die("Database cannot established connection properly: " . $conn->connect_error());

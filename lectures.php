@@ -118,7 +118,10 @@
                                                             <td><?php if (isset($lecHall)) {echo $lecHall;} else {echo $nullHall;} ?></td>
                                                             
                                                             <td><a href="lectures.php?edit=<?php echo $rows['lectureID'];?> "  class="btn btn-success btn-circle ml-1" ><i class="fas fa-edit text-white"></i></a>
-                                                            <a href="assets/php/deleteLecture.php?lectureID=<?php echo $rows['lectureID'];?> " class="btn btn-danger btn-circle ml-1"><i class="far fa-calendar-minus text-white"></a>
+                                                            <a href="assets/php/releaseHall.php?lectureID=<?php echo $rows['lectureID'];?> " class="btn btn-warning btn-circle ml-1" ><i class="fas fa-folder-minus"></i></a>
+                                                            <a href="assets/php/deleteLecture.php?lectureID=<?php echo $rows['lectureID'];?> " class="btn btn-danger btn-circle ml-1"><i class="far fa-calendar-minus text-white"></i></a>
+                                                      
+
                                                             </td>
 			                                                </tr>
 			                                                <?php } ?>
@@ -226,7 +229,7 @@
                                                         $lecTo = $rows['lectureTo'];
                                                         ?>
                                                         <tr>
-                                                            
+                                                            <div><input class="form-control" type="hidden" name="hallAssignLec" value="<?php echo $hallAssignLec;?>" ></div>
                                                             <td><?php echo $rows['lectureDate'];?></td>
                                                             <td><?php echo $rows['lectureFrom'];?></br><?php echo $rows['lectureTo'];?></td>
                                                             <td><?php echo $rows['lectureName'];?></td>
@@ -234,7 +237,6 @@
                                                             <td>
                                                             <div class="form-group">
                                                             
-                                                            <div><input class="form-control" type="hidden" name="hallAssignLec" value="<?php echo $hallAssignLec;?>" ></div>
                                                             <select  class="form-control" name="selectedHall" >
                                                             <?php
                                                                 $query2 = $conn->query("select reservHall from hallview where reservDate='$lecDate' AND reservFrom<'$lecTo' AND reservTo>'$lecFrom'");
@@ -334,6 +336,7 @@
                                                             <td><?php if (isset($lecHall)) {echo $lecHall;} else {echo $nullHall;} ?></td>
                                                             
                                                             <td><a href="lectures.php?edit=<?php echo $rows['lectureID'];?> "  class="btn btn-success btn-circle ml-1" ><i class="fas fa-edit text-white"></i></a>
+                                                            <a href="assets/php/releaseHall.php?lectureID=<?php echo $rows['lectureID'];?> " class="btn btn-warning btn-circle ml-1" ><i class="fas fa-folder-minus"></i></a>
                                                             <a href="assets/php/deleteLecture.php?lectureID=<?php echo $rows['lectureID'];?> " class="btn btn-danger btn-circle ml-1"><i class="far fa-calendar-minus text-white"></a>
                                                             </td>
 			                                                </tr>
